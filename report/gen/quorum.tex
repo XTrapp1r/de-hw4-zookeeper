@@ -1,0 +1,37 @@
+\begin{Verbatim}
+$ zk/zk3/bin/zkServer.sh stop
+Stopping zookeeper ... STOPPED
+$ zkstatus
+zk1 (порт 2181): Mode: follower
+zk2 (порт 2182): Mode: leader
+zk3 (порт 2183): Error contacting service. It is probably not running.
+$ zkcli 127.0.0.1:2181 set /hw4-check 'изменено через zk1, когда работают 2 из 3'; zkcli 127.0.0.1:2182 get -s /hw4-check | grep -E 'изменено|dataVersion'
+изменено через zk1, когда работают 2 из 3
+dataVersion = 1
+$ python src/zkctl.py probe
+кворум есть: сессия 0x200012d9ac10001 на 127.0.0.1:2182, setData /hw4-probe=2026-11-14T16:59:06 -> version 9, прочитано 2026-11-14T16:59:06
+$ zk/zk2/bin/zkServer.sh stop
+Stopping zookeeper ... STOPPED
+$ zkstatus
+zk1 (порт 2181): Error contacting service. It is probably not running.
+zk2 (порт 2182): Error contacting service. It is probably not running.
+zk3 (порт 2183): Error contacting service. It is probably not running.
+$ echo ruok | nc localhost 2181; echo; echo srvr | nc localhost 2181
+imok
+This ZooKeeper instance is not currently serving requests
+$ python src/zkctl.py probe
+НЕТ КВОРУМА: за 5.1 с не удалось открыть сессию (KazooTimeoutError); попыток соединения, оборванных серверами: 15 - ансамбль не обслуживает клиентов
+[exit code 1]
+$ with_timeout 20 zk/zk1/bin/zkCli.sh -server 127.0.0.1:2181 get /hw4-check 2>&1 | grep -v -E '^(WATCHER::|$)' | tail -4
+KeeperErrorCode = ConnectionLoss for /hw4-check
+$ zk/zk3/bin/zkServer.sh start; zk/zk2/bin/zkServer.sh start
+Starting zookeeper ... STARTED
+Starting zookeeper ... STARTED
+$ zkstatus
+zk1 (порт 2181): Mode: leader
+zk2 (порт 2182): Mode: follower
+zk3 (порт 2183): Mode: follower
+$ zkcli 127.0.0.1:2181,127.0.0.1:2182,127.0.0.1:2183 get -s /hw4-check | grep -E 'изменено|dataVersion'
+изменено через zk1, когда работают 2 из 3
+dataVersion = 1
+\end{Verbatim}

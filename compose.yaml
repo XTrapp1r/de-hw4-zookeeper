@@ -1,0 +1,45 @@
+name: hw4-zk
+
+x-zk: &zk
+  image: zookeeper:3.9.6-jre-17
+  restart: "no"
+
+x-env: &env
+  ZOO_TICK_TIME: 2000
+  ZOO_INIT_LIMIT: 10
+  ZOO_SYNC_LIMIT: 5
+  ZOO_STANDALONE_ENABLED: "false"
+  ZOO_4LW_COMMANDS_WHITELIST: srvr,stat,ruok,mntr,conf,cons,dump
+  ZOO_CFG_EXTRA: minSessionTimeout=4000 maxSessionTimeout=40000
+  ZOO_SERVERS: server.1=zoo1:2888:3888;2181 server.2=zoo2:2888:3888;2181 server.3=zoo3:2888:3888;2181
+
+services:
+  zoo1:
+    <<: *zk
+    hostname: zoo1
+    container_name: zoo1
+    environment: { <<: *env, ZOO_MY_ID: 1 }
+    ports: ["2181:2181", "8081:8080"]
+    volumes: [zoo1-data:/data, zoo1-datalog:/datalog]
+  zoo2:
+    <<: *zk
+    hostname: zoo2
+    container_name: zoo2
+    environment: { <<: *env, ZOO_MY_ID: 2 }
+    ports: ["2182:2181", "8082:8080"]
+    volumes: [zoo2-data:/data, zoo2-datalog:/datalog]
+  zoo3:
+    <<: *zk
+    hostname: zoo3
+    container_name: zoo3
+    environment: { <<: *env, ZOO_MY_ID: 3 }
+    ports: ["2183:2181", "8083:8080"]
+    volumes: [zoo3-data:/data, zoo3-datalog:/datalog]
+
+volumes:
+  zoo1-data:
+  zoo1-datalog:
+  zoo2-data:
+  zoo2-datalog:
+  zoo3-data:
+  zoo3-datalog:

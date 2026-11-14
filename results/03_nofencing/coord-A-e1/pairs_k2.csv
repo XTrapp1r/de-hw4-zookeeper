@@ -1,0 +1,1228 @@
+skill_1,skill_2,vacancies
+C,C++,424
+C++,Linux,386
+C++,Алгоритмы и структуры данных,258
+C++,Qt,223
+C++,Многопоточность,188
+C++,Архитектура ПО,187
+C,Linux,186
+C++,STL,182
+C++,Оптимизация производительности,170
+C++,Сети TCP/IP,168
+C++,Embedded,148
+C++,Python,143
+C++,ООП,139
+C++,Windows,133
+C++,GUI,112
+Linux,Windows,109
+Linux,Сети TCP/IP,108
+C++,Отладка,107
+C++,SQL/СУБД,106
+Linux,Архитектура ПО,105
+C,Embedded,104
+C++,Git,102
+Embedded,Linux,102
+C,Архитектура ПО,94
+C++,Unit-тесты,92
+Linux,Многопоточность,92
+Linux,Драйверы/ядро ОС,90
+Linux,Python,86
+C,Сети TCP/IP,84
+Многопоточность,Сети TCP/IP,84
+Linux,Qt,83
+C++,Техническая документация,82
+Bash/Shell,Python,76
+C++,Микроконтроллеры,76
+C++,Драйверы/ядро ОС,75
+C,Отладка,74
+GUI,Qt,74
+C++,Высоконагруженные системы,69
+C,Многопоточность,67
+C++,Математика,67
+Linux,Отладка,65
+C,Алгоритмы и структуры данных,64
+Алгоритмы и структуры данных,Оптимизация производительности,63
+Boost,C++,62
+C++,Видео/мультимедиа,62
+Linux,STL,62
+C#,C++,61
+Boost,STL,60
+Linux,Алгоритмы и структуры данных,60
+STL,Алгоритмы и структуры данных,60
+C,Драйверы/ядро ОС,59
+C,Микроконтроллеры,59
+Linux,Оптимизация производительности,57
+C++,Code review,54
+C++,Java,54
+Git,Linux,54
+QML,Qt,54
+Алгоритмы и структуры данных,Многопоточность,54
+C++,CMake,53
+Linux,Unit-тесты,53
+Qt,ООП,51
+STL,Многопоточность,51
+Архитектура ПО,Многопоточность,51
+C++,Английский язык,50
+Python,Алгоритмы и структуры данных,50
+Python,Архитектура ПО,48
+Python,Оптимизация производительности,48
+C++,QML,47
+Bash/Shell,Linux,46
+C++,RTOS/QNX,46
+Qt,Windows,46
+Embedded,Архитектура ПО,45
+GUI,Linux,45
+Многопоточность,Оптимизация производительности,45
+Bash/Shell,C++,44
+C,Windows,44
+C++,Паттерны/SOLID,44
+Embedded,Микроконтроллеры,44
+Linux,Unix/POSIX,44
+Алгоритмы и структуры данных,ООП,44
+Алгоритмы и структуры данных,Архитектура ПО,43
+Архитектура ПО,Отладка,43
+C,Python,42
+ARM,C++,41
+C,Техническая документация,41
+C++,Unix/POSIX,41
+C++,Gamedev,40
+C++,PostgreSQL,40
+Алгоритмы и структуры данных,Математика,40
+Python,Многопоточность,39
+C,Qt,38
+Git,Qt,38
+Архитектура ПО,Сети TCP/IP,38
+Оптимизация производительности,Отладка,38
+Boost,Linux,37
+C,RTOS/QNX,37
+C,SQL/СУБД,37
+ARM,C,36
+Embedded,Драйверы/ядро ОС,36
+Embedded,Отладка,36
+Linux,SQL/СУБД,36
+Алгоритмы и структуры данных,Сети TCP/IP,36
+C,Оптимизация производительности,35
+Embedded,Многопоточность,35
+Qt,STL,35
+STL,Сети TCP/IP,35
+Английский язык,Техническая документация,35
+Linux,ООП,34
+Qt,Архитектура ПО,34
+ARM,Embedded,33
+C,Unit-тесты,33
+Embedded,RTOS/QNX,33
+Embedded,Алгоритмы и структуры данных,33
+PostgreSQL,SQL/СУБД,33
+Python,Сети TCP/IP,33
+Qt,Многопоточность,33
+Архитектура ПО,Оптимизация производительности,33
+3D/графика,C++,32
+Linux,RTOS/QNX,32
+Linux,Высоконагруженные системы,32
+Python,SQL/СУБД,32
+C++,Computer Vision,31
+Python,Qt,31
+Qt,Сети TCP/IP,31
+STL,ООП,31
+C++,Информационная безопасность,30
+CMake,Linux,30
+STL,Оптимизация производительности,30
+Микроконтроллеры,Схемотехника,30
+Многопоточность,Отладка,30
+C,Unix/POSIX,29
+Linux,Английский язык,29
+Qt,Алгоритмы и структуры данных,29
+Высоконагруженные системы,Многопоточность,29
+ARM,Linux,28
+C#,Java,28
+Code review,Архитектура ПО,28
+GUI,Windows,28
+Linux,Микроконтроллеры,28
+Python,Unit-тесты,28
+Qt,SQL/СУБД,28
+Windows,Многопоточность,28
+ООП,Паттерны/SOLID,28
+C++,ЦОС/сигналы,27
+GUI,ООП,27
+Git,Python,27
+Qt,Оптимизация производительности,27
+Драйверы/ядро ОС,Отладка,27
+ARM,Архитектура ПО,26
+Embedded,Python,26
+Git,STL,26
+Java,Python,26
+Linux,Техническая документация,26
+ARM,Микроконтроллеры,25
+C,C#,25
+C,Git,25
+C,Английский язык,25
+C++,ML/нейросети,25
+Git,Оптимизация производительности,25
+Unit-тесты,Многопоточность,25
+Unit-тесты,Отладка,25
+Алгоритмы и структуры данных,ЦОС/сигналы,25
+Высоконагруженные системы,Оптимизация производительности,25
+Интерфейсы UART/SPI/I2C,Сети TCP/IP,25
+Boost,Многопоточность,24
+C,Схемотехника,24
+C#,Python,24
+C++,Интерфейсы UART/SPI/I2C,24
+C++,Схемотехника,24
+CMake,Git,24
+Linux,Видео/мультимедиа,24
+ML/нейросети,Алгоритмы и структуры данных,24
+STL,Архитектура ПО,24
+Windows,Алгоритмы и структуры данных,24
+Архитектура ПО,Драйверы/ядро ОС,24
+Android,C++,23
+GUI,Алгоритмы и структуры данных,23
+Git,Сети TCP/IP,23
+Python,Отладка,23
+SQL/СУБД,Сети TCP/IP,23
+Unit-тесты,Архитектура ПО,23
+Unix/POSIX,Архитектура ПО,23
+Алгоритмы и структуры данных,Высоконагруженные системы,23
+C,Code review,22
+C++,Компиляторы GCC/Clang,22
+Code review,Оптимизация производительности,22
+Computer Vision,Алгоритмы и структуры данных,22
+Python,Windows,22
+STL,Windows,22
+STL,Высоконагруженные системы,22
+Windows,Сети TCP/IP,22
+Архитектура ПО,Техническая документация,22
+Высоконагруженные системы,Сети TCP/IP,22
+Драйверы/ядро ОС,Сети TCP/IP,22
+Bash/Shell,Сети TCP/IP,21
+C++,Go,21
+Code review,Linux,21
+GUI,Оптимизация производительности,21
+GUI,Сети TCP/IP,21
+Linux,QML,21
+Python,Высоконагруженные системы,21
+SQL/СУБД,Алгоритмы и структуры данных,21
+STL,Unit-тесты,21
+Unit-тесты,Оптимизация производительности,21
+Архитектура ПО,Микроконтроллеры,21
+Boost,Qt,20
+C,GUI,20
+C,STL,20
+C#,Linux,20
+C#,SQL/СУБД,20
+C++,HTTP/REST,20
+CMake,Embedded,20
+CMake,Алгоритмы и структуры данных,20
+GUI,Многопоточность,20
+Linux,PostgreSQL,20
+ML/нейросети,Python,20
+RTOS/QNX,Микроконтроллеры,20
+SQL/СУБД,STL,20
+SQL/СУБД,Архитектура ПО,20
+Unit-тесты,Windows,20
+Windows,ООП,20
+Алгоритмы и структуры данных,Отладка,20
+ООП,Оптимизация производительности,20
+ARM,Отладка,19
+C,ООП,19
+CMake,Python,19
+Docker,Python,19
+Embedded,Сети TCP/IP,19
+Go,Python,19
+Linux,Информационная безопасность,19
+Qt,Unit-тесты,19
+Qt,Техническая документация,19
+SQL/СУБД,Windows,19
+Windows,Отладка,19
+Архитектура ПО,ООП,19
+C,CMake,18
+C,Java,18
+C,Высоконагруженные системы,18
+C,Информационная безопасность,18
+CMake,Unit-тесты,18
+Embedded,Git,18
+GUI,QML,18
+Git,Многопоточность,18
+Python,Математика,18
+Qt,Паттерны/SOLID,18
+SQL/СУБД,Многопоточность,18
+Unit-тесты,Алгоритмы и структуры данных,18
+Многопоточность,ООП,18
+Bash/Shell,C,17
+C,Математика,17
+Embedded,Qt,17
+Embedded,Английский язык,17
+Embedded,Видео/мультимедиа,17
+Embedded,Техническая документация,17
+GUI,Python,17
+GUI,SQL/СУБД,17
+GUI,STL,17
+ML/нейросети,Оптимизация производительности,17
+Python,Техническая документация,17
+Qt,Отладка,17
+RTOS/QNX,Многопоточность,17
+Unix/POSIX,Многопоточность,17
+Алгоритмы и структуры данных,Английский язык,17
+Архитектура ПО,Высоконагруженные системы,17
+Математика,Оптимизация производительности,17
+Микроконтроллеры,Отладка,17
+Отладка,Техническая документация,17
+Bash/Shell,Git,16
+Bash/Shell,Отладка,16
+Boost,Алгоритмы и структуры данных,16
+C#,Qt,16
+C++,CI/CD,16
+C++,Docker,16
+CMake,Архитектура ПО,16
+CMake,Многопоточность,16
+Code review,Python,16
+Code review,Многопоточность,16
+Docker,Git,16
+Docker,Linux,16
+Embedded,Интерфейсы UART/SPI/I2C,16
+GUI,Git,16
+Git,Архитектура ПО,16
+HTTP/REST,Сети TCP/IP,16
+Python,Видео/мультимедиа,16
+STL,Паттерны/SOLID,16
+Windows,Архитектура ПО,16
+Алгоритмы и структуры данных,Техническая документация,16
+Драйверы/ядро ОС,Оптимизация производительности,16
+Boost,Windows,15
+Boost,Сети TCP/IP,15
+CMake,Qt,15
+CMake,Отладка,15
+CMake,Сети TCP/IP,15
+Code review,Unit-тесты,15
+Computer Vision,Python,15
+Embedded,Unit-тесты,15
+Embedded,Оптимизация производительности,15
+GUI,Архитектура ПО,15
+Git,Алгоритмы и структуры данных,15
+Git,Отладка,15
+Java,Linux,15
+Java,SQL/СУБД,15
+Linux,Интерфейсы UART/SPI/I2C,15
+Qt,Видео/мультимедиа,15
+RTOS/QNX,Архитектура ПО,15
+SQL/СУБД,Оптимизация производительности,15
+Windows,Драйверы/ядро ОС,15
+Видео/мультимедиа,Многопоточность,15
+Видео/мультимедиа,Оптимизация производительности,15
+3D/графика,Математика,14
+CI/CD,Git,14
+Code review,Алгоритмы и структуры данных,14
+Embedded,Схемотехника,14
+Git,SQL/СУБД,14
+PostgreSQL,Python,14
+Python,Unix/POSIX,14
+Python,Английский язык,14
+Python,Драйверы/ядро ОС,14
+QML,Архитектура ПО,14
+SQL/СУБД,Unit-тесты,14
+STL,Информационная безопасность,14
+Unix/POSIX,Драйверы/ядро ОС,14
+Unix/POSIX,Отладка,14
+Английский язык,Сети TCP/IP,14
+Многопоточность,Паттерны/SOLID,14
+ООП,Сети TCP/IP,14
+Boost,Python,13
+C,Computer Vision,13
+C,Интерфейсы UART/SPI/I2C,13
+C,Компиляторы GCC/Clang,13
+C#,GUI,13
+Code review,Qt,13
+Code review,Сети TCP/IP,13
+Computer Vision,ЦОС/сигналы,13
+Embedded,ЦОС/сигналы,13
+GUI,Gamedev,13
+Git,QML,13
+HTTP/REST,Python,13
+Java,Оптимизация производительности,13
+Linux,Компиляторы GCC/Clang,13
+PostgreSQL,Qt,13
+Python,Интерфейсы UART/SPI/I2C,13
+SQL/СУБД,Высоконагруженные системы,13
+STL,Unix/POSIX,13
+Unix/POSIX,Сети TCP/IP,13
+Английский язык,Драйверы/ядро ОС,13
+Английский язык,Оптимизация производительности,13
+Архитектура ПО,Паттерны/SOLID,13
+Видео/мультимедиа,Сети TCP/IP,13
+Информационная безопасность,Сети TCP/IP,13
+Сети TCP/IP,Техническая документация,13
+ARM,RTOS/QNX,12
+ARM,Многопоточность,12
+Bash/Shell,CMake,12
+Bash/Shell,Embedded,12
+Bash/Shell,Архитектура ПО,12
+Bash/Shell,Драйверы/ядро ОС,12
+C,PostgreSQL,12
+C#,Алгоритмы и структуры данных,12
+C++,CUDA/GPU,12
+CMake,STL,12
+Computer Vision,ML/нейросети,12
+Embedded,ООП,12
+GUI,Видео/мультимедиа,12
+Gamedev,Оптимизация производительности,12
+Git,Windows,12
+Git,Английский язык,12
+Git,Видео/мультимедиа,12
+Qt,Математика,12
+RTOS/QNX,Unix/POSIX,12
+Unit-тесты,Техническая документация,12
+Unix/POSIX,Оптимизация производительности,12
+Windows,Оптимизация производительности,12
+Алгоритмы и структуры данных,Интерфейсы UART/SPI/I2C,12
+Драйверы/ядро ОС,Многопоточность,12
+Компиляторы GCC/Clang,Отладка,12
+Математика,ООП,12
+Отладка,Сети TCP/IP,12
+Паттерны/SOLID,Сети TCP/IP,12
+3D/графика,Оптимизация производительности,11
+Bash/Shell,SQL/СУБД,11
+Boost,Архитектура ПО,11
+C,Go,11
+C,Ассемблер,11
+C,Видео/мультимедиа,11
+C,ЦОС/сигналы,11
+C++,gRPC/Protobuf,11
+C++,Ассемблер,11
+CI/CD,Python,11
+Embedded,STL,11
+Gamedev,ООП,11
+Java,Алгоритмы и структуры данных,11
+Linux,Паттерны/SOLID,11
+Linux,Схемотехника,11
+PostgreSQL,STL,11
+Python,ЦОС/сигналы,11
+STL,Отладка,11
+Windows,Английский язык,11
+Алгоритмы и структуры данных,Паттерны/SOLID,11
+Архитектура ПО,Интерфейсы UART/SPI/I2C,11
+Драйверы/ядро ОС,Интерфейсы UART/SPI/I2C,11
+Многопоточность,Техническая документация,11
+Оптимизация производительности,Сети TCP/IP,11
+ARM,Драйверы/ядро ОС,10
+Android,Java,10
+Boost,Unit-тесты,10
+C#,Оптимизация производительности,10
+CI/CD,Оптимизация производительности,10
+CMake,Code review,10
+Code review,QML,10
+Code review,SQL/СУБД,10
+Docker,Оптимизация производительности,10
+GUI,Unit-тесты,10
+GUI,Математика,10
+GUI,Паттерны/SOLID,10
+Git,PostgreSQL,10
+Git,Unit-тесты,10
+Git,Техническая документация,10
+Linux,Математика,10
+PostgreSQL,Архитектура ПО,10
+SQL/СУБД,ООП,10
+STL,Видео/мультимедиа,10
+STL,Математика,10
+STL,Техническая документация,10
+Unit-тесты,Видео/мультимедиа,10
+Unit-тесты,Высоконагруженные системы,10
+Unit-тесты,Сети TCP/IP,10
+Алгоритмы и структуры данных,Драйверы/ядро ОС,10
+Математика,Многопоточность,10
+ООП,Техническая документация,10
+Оптимизация производительности,Техническая документация,10
+3D/графика,Алгоритмы и структуры данных,9
+Android,Linux,9
+Bash/Shell,Qt,9
+Bash/Shell,Unix/POSIX,9
+Boost,C,9
+Boost,CMake,9
+Boost,Высоконагруженные системы,9
+Boost,Оптимизация производительности,9
+C,HTTP/REST,9
+C,Паттерны/SOLID,9
+C#,Windows,9
+CMake,GUI,9
+CMake,Оптимизация производительности,9
+Computer Vision,Видео/мультимедиа,9
+Git,RTOS/QNX,9
+Git,Драйверы/ядро ОС,9
+Git,ООП,9
+Go,Оптимизация производительности,9
+HTTP/REST,Linux,9
+PostgreSQL,Многопоточность,9
+Python,QML,9
+Python,RTOS/QNX,9
+Python,Информационная безопасность,9
+Python,Микроконтроллеры,9
+QML,Windows,9
+RTOS/QNX,Отладка,9
+Unit-тесты,ООП,9
+Алгоритмы и структуры данных,Видео/мультимедиа,9
+Алгоритмы и структуры данных,Информационная безопасность,9
+Алгоритмы и структуры данных,Микроконтроллеры,9
+Английский язык,Архитектура ПО,9
+Видео/мультимедиа,ООП,9
+Высоконагруженные системы,Информационная безопасность,9
+Драйверы/ядро ОС,Техническая документация,9
+Интерфейсы UART/SPI/I2C,Микроконтроллеры,9
+Микроконтроллеры,Техническая документация,9
+3D/графика,Gamedev,8
+3D/графика,Python,8
+Android,GUI,8
+Bash/Shell,Docker,8
+Bash/Shell,Высоконагруженные системы,8
+Bash/Shell,Интерфейсы UART/SPI/I2C,8
+Boost,Git,8
+Boost,SQL/СУБД,8
+CI/CD,Linux,8
+CMake,Docker,8
+CMake,Windows,8
+Code review,STL,8
+Code review,Высоконагруженные системы,8
+Docker,PostgreSQL,8
+Docker,Архитектура ПО,8
+Docker,Сети TCP/IP,8
+Embedded,Unix/POSIX,8
+Gamedev,Архитектура ПО,8
+Go,Linux,8
+Go,SQL/СУБД,8
+Go,Архитектура ПО,8
+HTTP/REST,Интерфейсы UART/SPI/I2C,8
+PostgreSQL,Windows,8
+PostgreSQL,Сети TCP/IP,8
+Python,STL,8
+Python,ООП,8
+QML,Многопоточность,8
+Qt,Английский язык,8
+RTOS/QNX,Схемотехника,8
+STL,Интерфейсы UART/SPI/I2C,8
+Unix/POSIX,Высоконагруженные системы,8
+Windows,Микроконтроллеры,8
+Алгоритмы и структуры данных,Схемотехника,8
+Английский язык,Интерфейсы UART/SPI/I2C,8
+Английский язык,Отладка,8
+Архитектура ПО,Схемотехника,8
+Высоконагруженные системы,Отладка,8
+Интерфейсы UART/SPI/I2C,Информационная безопасность,8
+Интерфейсы UART/SPI/I2C,Отладка,8
+Информационная безопасность,Многопоточность,8
+Компиляторы GCC/Clang,Оптимизация производительности,8
+Микроконтроллеры,Многопоточность,8
+3D/графика,GUI,7
+3D/графика,Qt,7
+ARM,Сети TCP/IP,7
+Android,Windows,7
+Android,Архитектура ПО,7
+Android,Оптимизация производительности,7
+Bash/Shell,Code review,7
+Bash/Shell,GUI,7
+Bash/Shell,HTTP/REST,7
+Bash/Shell,Английский язык,7
+Bash/Shell,Оптимизация производительности,7
+Boost,HTTP/REST,7
+Boost,gRPC/Protobuf,7
+Boost,Отладка,7
+C#,Unit-тесты,7
+C#,Архитектура ПО,7
+C#,Техническая документация,7
+CI/CD,CMake,7
+CI/CD,Docker,7
+CUDA/GPU,Оптимизация производительности,7
+Computer Vision,Linux,7
+Computer Vision,SQL/СУБД,7
+Computer Vision,Математика,7
+Computer Vision,Многопоточность,7
+Docker,Unit-тесты,7
+Docker,Алгоритмы и структуры данных,7
+Docker,Отладка,7
+Embedded,SQL/СУБД,7
+GUI,PostgreSQL,7
+Git,Unix/POSIX,7
+HTTP/REST,Архитектура ПО,7
+Linux,ЦОС/сигналы,7
+Qt,Unix/POSIX,7
+RTOS/QNX,Сети TCP/IP,7
+SQL/СУБД,Отладка,7
+SQL/СУБД,Техническая документация,7
+STL,Драйверы/ядро ОС,7
+Windows,Ассемблер,7
+Windows,Видео/мультимедиа,7
+Windows,Информационная безопасность,7
+Архитектура ПО,Информационная безопасность,7
+Архитектура ПО,Математика,7
+Драйверы/ядро ОС,Микроконтроллеры,7
+Микроконтроллеры,Сети TCP/IP,7
+Микроконтроллеры,ЦОС/сигналы,7
+Оптимизация производительности,ЦОС/сигналы,7
+3D/графика,Архитектура ПО,6
+ARM,Компиляторы GCC/Clang,6
+ARM,Оптимизация производительности,6
+Android,Qt,6
+Bash/Shell,Java,6
+Bash/Shell,STL,6
+Bash/Shell,Алгоритмы и структуры данных,6
+Boost,Информационная безопасность,6
+Boost,Паттерны/SOLID,6
+C,Rust,6
+C#,CMake,6
+C#,Gamedev,6
+C#,Английский язык,6
+C#,ООП,6
+CI/CD,Алгоритмы и структуры данных,6
+CI/CD,Сети TCP/IP,6
+CMake,SQL/СУБД,6
+CMake,Видео/мультимедиа,6
+CMake,Компиляторы GCC/Clang,6
+CMake,ООП,6
+CUDA/GPU,Видео/мультимедиа,6
+Code review,Docker,6
+Code review,Windows,6
+Code review,Отладка,6
+Embedded,Windows,6
+GUI,Английский язык,6
+GUI,Микроконтроллеры,6
+GUI,Отладка,6
+GUI,Техническая документация,6
+Gamedev,Алгоритмы и структуры данных,6
+Go,Высоконагруженные системы,6
+HTTP/REST,STL,6
+HTTP/REST,Оптимизация производительности,6
+Java,Отладка,6
+Kubernetes,Python,6
+Linux,ML/нейросети,6
+Linux,Ассемблер,6
+ML/нейросети,Видео/мультимедиа,6
+ML/нейросети,ЦОС/сигналы,6
+PostgreSQL,QML,6
+Python,Схемотехника,6
+Qt,Драйверы/ядро ОС,6
+Qt,Микроконтроллеры,6
+Qt,ЦОС/сигналы,6
+RTOS/QNX,Алгоритмы и структуры данных,6
+RTOS/QNX,Математика,6
+SQL/СУБД,Драйверы/ядро ОС,6
+Unit-тесты,Английский язык,6
+Unit-тесты,Драйверы/ядро ОС,6
+Unit-тесты,Микроконтроллеры,6
+Windows,Паттерны/SOLID,6
+Архитектура ПО,Компиляторы GCC/Clang,6
+Информационная безопасность,Отладка,6
+ООП,Отладка,6
+Отладка,Схемотехника,6
+Схемотехника,Техническая документация,6
+3D/графика,STL,5
+3D/графика,Многопоточность,5
+ARM,Git,5
+ARM,Python,5
+ARM,Windows,5
+Android,Code review,5
+Android,Видео/мультимедиа,5
+Bash/Shell,QML,5
+Bash/Shell,Unit-тесты,5
+Bash/Shell,Windows,5
+Bash/Shell,Математика,5
+Bash/Shell,Многопоточность,5
+Bash/Shell,ООП,5
+Bash/Shell,Техническая документация,5
+Boost,Code review,5
+Boost,GUI,5
+Boost,PostgreSQL,5
+Boost,Интерфейсы UART/SPI/I2C,5
+Boost,Математика,5
+C#,Видео/мультимедиа,5
+C#,Микроконтроллеры,5
+C#,Схемотехника,5
+CI/CD,Многопоточность,5
+CMake,PostgreSQL,5
+CMake,QML,5
+CMake,Английский язык,5
+CMake,Интерфейсы UART/SPI/I2C,5
+Code review,Gamedev,5
+Code review,Git,5
+Code review,Английский язык,5
+Computer Vision,Qt,5
+Computer Vision,Английский язык,5
+Docker,Kubernetes,5
+Docker,Unix/POSIX,5
+Embedded,QML,5
+Embedded,Информационная безопасность,5
+Embedded,Компиляторы GCC/Clang,5
+Embedded,Математика,5
+Gamedev,Qt,5
+Gamedev,Математика,5
+Git,HTTP/REST,5
+Git,ML/нейросети,5
+Git,Высоконагруженные системы,5
+Git,Компиляторы GCC/Clang,5
+Git,Микроконтроллеры,5
+Go,Java,5
+Go,Отладка,5
+HTTP/REST,Информационная безопасность,5
+Java,Архитектура ПО,5
+Java,Высоконагруженные системы,5
+Java,Техническая документация,5
+Kubernetes,Linux,5
+ML/нейросети,Высоконагруженные системы,5
+ML/нейросети,Математика,5
+ML/нейросети,Многопоточность,5
+PostgreSQL,Unix/POSIX,5
+PostgreSQL,Алгоритмы и структуры данных,5
+PostgreSQL,ООП,5
+QML,SQL/СУБД,5
+QML,STL,5
+QML,Алгоритмы и структуры данных,5
+QML,Сети TCP/IP,5
+Qt,Высоконагруженные системы,5
+Qt,Интерфейсы UART/SPI/I2C,5
+RTOS/QNX,Техническая документация,5
+SQL/СУБД,Unix/POSIX,5
+SQL/СУБД,Английский язык,5
+STL,Английский язык,5
+Unit-тесты,Математика,5
+Unix/POSIX,Windows,5
+Windows,Математика,5
+Английский язык,Математика,5
+Видео/мультимедиа,Микроконтроллеры,5
+Видео/мультимедиа,Паттерны/SOLID,5
+Видео/мультимедиа,ЦОС/сигналы,5
+Высоконагруженные системы,Техническая документация,5
+Интерфейсы UART/SPI/I2C,Техническая документация,5
+Математика,Отладка,5
+Математика,Техническая документация,5
+Микроконтроллеры,ООП,5
+Отладка,ЦОС/сигналы,5
+Паттерны/SOLID,Техническая документация,5
+Схемотехника,ЦОС/сигналы,5
+3D/графика,Git,4
+3D/графика,Видео/мультимедиа,4
+3D/графика,Сети TCP/IP,4
+ARM,Bash/Shell,4
+ARM,CMake,4
+ARM,Unix/POSIX,4
+ARM,Интерфейсы UART/SPI/I2C,4
+Android,C,4
+Android,Gamedev,4
+Android,Git,4
+Android,Python,4
+Android,QML,4
+Android,Алгоритмы и структуры данных,4
+Android,Многопоточность,4
+Android,ООП,4
+Android,Сети TCP/IP,4
+Bash/Shell,RTOS/QNX,4
+Bash/Shell,ЦОС/сигналы,4
+Boost,QML,4
+Boost,Unix/POSIX,4
+Boost,ООП,4
+C,ML/нейросети,4
+C#,Computer Vision,4
+C#,Информационная безопасность,4
+C#,Математика,4
+C#,Отладка,4
+C++,Rust,4
+CI/CD,Qt,4
+CI/CD,Unit-тесты,4
+CMake,ML/нейросети,4
+CMake,gRPC/Protobuf,4
+CMake,Драйверы/ядро ОС,4
+CUDA/GPU,Unit-тесты,4
+CUDA/GPU,Алгоритмы и структуры данных,4
+CUDA/GPU,Английский язык,4
+CUDA/GPU,Многопоточность,4
+Code review,Java,4
+Computer Vision,Embedded,4
+Computer Vision,Драйверы/ядро ОС,4
+Computer Vision,Оптимизация производительности,4
+Docker,Embedded,4
+Docker,SQL/СУБД,4
+Embedded,PostgreSQL,4
+GUI,Java,4
+Git,Интерфейсы UART/SPI/I2C,4
+Git,Математика,4
+Go,Английский язык,4
+Go,Техническая документация,4
+HTTP/REST,Unit-тесты,4
+HTTP/REST,Видео/мультимедиа,4
+HTTP/REST,Многопоточность,4
+Java,ML/нейросети,4
+Java,Qt,4
+Java,Unit-тесты,4
+Java,Windows,4
+Java,Многопоточность,4
+Kubernetes,Windows,4
+Kubernetes,Архитектура ПО,4
+PostgreSQL,Unit-тесты,4
+Python,Rust,4
+Python,Паттерны/SOLID,4
+QML,Unit-тесты,4
+QML,ООП,4
+QML,Отладка,4
+RTOS/QNX,Английский язык,4
+RTOS/QNX,ООП,4
+Unit-тесты,Паттерны/SOLID,4
+Unix/POSIX,Техническая документация,4
+Windows,Высоконагруженные системы,4
+Windows,Техническая документация,4
+gRPC/Protobuf,Высоконагруженные системы,4
+Английский язык,Микроконтроллеры,4
+Архитектура ПО,Видео/мультимедиа,4
+Архитектура ПО,ЦОС/сигналы,4
+Ассемблер,Драйверы/ядро ОС,4
+Видео/мультимедиа,Техническая документация,4
+Драйверы/ядро ОС,Информационная безопасность,4
+Компиляторы GCC/Clang,Сети TCP/IP,4
+Многопоточность,ЦОС/сигналы,4
+Оптимизация производительности,Паттерны/SOLID,4
+3D/графика,Bash/Shell,3
+3D/графика,C,3
+3D/графика,C#,3
+3D/графика,CI/CD,3
+3D/графика,CMake,3
+3D/графика,Computer Vision,3
+3D/графика,Английский язык,3
+3D/графика,Отладка,3
+ARM,Unit-тесты,3
+Bash/Shell,Boost,3
+Bash/Shell,Go,3
+Bash/Shell,Информационная безопасность,3
+Bash/Shell,Компиляторы GCC/Clang,3
+Bash/Shell,Паттерны/SOLID,3
+Boost,RTOS/QNX,3
+C,Docker,3
+C,QML,3
+C#,Go,3
+C#,STL,3
+C#,Высоконагруженные системы,3
+C#,Многопоточность,3
+C#,Сети TCP/IP,3
+CI/CD,Code review,3
+CI/CD,QML,3
+CI/CD,Windows,3
+CI/CD,Видео/мультимедиа,3
+CI/CD,Отладка,3
+CMake,CUDA/GPU,3
+CMake,RTOS/QNX,3
+CMake,Unix/POSIX,3
+CMake,Микроконтроллеры,3
+CMake,Паттерны/SOLID,3
+CMake,Техническая документация,3
+CUDA/GPU,Python,3
+CUDA/GPU,Математика,3
+CUDA/GPU,Сети TCP/IP,3
+Code review,Embedded,3
+Code review,ML/нейросети,3
+Code review,Драйверы/ядро ОС,3
+Computer Vision,Git,3
+Computer Vision,RTOS/QNX,3
+Docker,Go,3
+Docker,Многопоточность,3
+Embedded,GUI,3
+Embedded,ML/нейросети,3
+Gamedev,STL,3
+Gamedev,Видео/мультимедиа,3
+Gamedev,Многопоточность,3
+Git,Java,3
+Git,ЦОС/сигналы,3
+Go,PostgreSQL,3
+Go,Qt,3
+Go,Rust,3
+Go,Unit-тесты,3
+Go,Алгоритмы и структуры данных,3
+HTTP/REST,SQL/СУБД,3
+HTTP/REST,Unix/POSIX,3
+HTTP/REST,gRPC/Protobuf,3
+HTTP/REST,Алгоритмы и структуры данных,3
+Java,Английский язык,3
+Java,ООП,3
+Java,Схемотехника,3
+Kubernetes,Unit-тесты,3
+Kubernetes,Алгоритмы и структуры данных,3
+Linux,gRPC/Protobuf,3
+ML/нейросети,SQL/СУБД,3
+ML/нейросети,ООП,3
+ML/нейросети,Сети TCP/IP,3
+Python,gRPC/Protobuf,3
+Python,Ассемблер,3
+QML,Техническая документация,3
+Qt,RTOS/QNX,3
+Qt,gRPC/Protobuf,3
+Qt,Информационная безопасность,3
+RTOS/QNX,Windows,3
+RTOS/QNX,Высоконагруженные системы,3
+RTOS/QNX,ЦОС/сигналы,3
+Rust,Английский язык,3
+Rust,Оптимизация производительности,3
+SQL/СУБД,Информационная безопасность,3
+SQL/СУБД,Математика,3
+STL,gRPC/Protobuf,3
+Unit-тесты,Unix/POSIX,3
+Unit-тесты,gRPC/Protobuf,3
+Unit-тесты,Информационная безопасность,3
+Unit-тесты,Компиляторы GCC/Clang,3
+Unix/POSIX,Алгоритмы и структуры данных,3
+Unix/POSIX,Видео/мультимедиа,3
+Unix/POSIX,Информационная безопасность,3
+Unix/POSIX,Паттерны/SOLID,3
+gRPC/Protobuf,Алгоритмы и структуры данных,3
+gRPC/Protobuf,Многопоточность,3
+gRPC/Protobuf,Оптимизация производительности,3
+gRPC/Protobuf,Сети TCP/IP,3
+Английский язык,Видео/мультимедиа,3
+Английский язык,Высоконагруженные системы,3
+Английский язык,ООП,3
+Английский язык,ЦОС/сигналы,3
+Ассемблер,Математика,3
+Видео/мультимедиа,Математика,3
+Видео/мультимедиа,Отладка,3
+Драйверы/ядро ОС,Компиляторы GCC/Clang,3
+Интерфейсы UART/SPI/I2C,Многопоточность,3
+Интерфейсы UART/SPI/I2C,ЦОС/сигналы,3
+Информационная безопасность,Оптимизация производительности,3
+Компиляторы GCC/Clang,ООП,3
+Отладка,Паттерны/SOLID,3
+3D/графика,Code review,2
+3D/графика,Java,2
+3D/графика,Linux,2
+3D/графика,Техническая документация,2
+ARM,Computer Vision,2
+ARM,Docker,2
+ARM,Алгоритмы и структуры данных,2
+ARM,Английский язык,2
+ARM,Техническая документация,2
+Android,Bash/Shell,2
+Android,CMake,2
+Bash/Shell,C#,2
+Bash/Shell,Computer Vision,2
+Bash/Shell,Kubernetes,2
+Bash/Shell,ML/нейросети,2
+Bash/Shell,Ассемблер,2
+Bash/Shell,Микроконтроллеры,2
+Bash/Shell,Схемотехника,2
+Boost,C#,2
+Boost,Embedded,2
+Boost,Видео/мультимедиа,2
+Boost,Драйверы/ядро ОС,2
+Boost,ЦОС/сигналы,2
+C,CI/CD,2
+C,Gamedev,2
+C#,Git,2
+C#,ML/нейросети,2
+C#,QML,2
+C#,Unix/POSIX,2
+C#,gRPC/Protobuf,2
+C#,Интерфейсы UART/SPI/I2C,2
+C#,ЦОС/сигналы,2
+CI/CD,PostgreSQL,2
+CI/CD,STL,2
+CI/CD,Unix/POSIX,2
+CI/CD,gRPC/Protobuf,2
+CI/CD,Архитектура ПО,2
+CI/CD,Микроконтроллеры,2
+CMake,HTTP/REST,2
+CMake,Информационная безопасность,2
+CMake,Математика,2
+CMake,ЦОС/сигналы,2
+CUDA/GPU,Embedded,2
+CUDA/GPU,Git,2
+CUDA/GPU,Linux,2
+CUDA/GPU,Windows,2
+CUDA/GPU,Отладка,2
+Code review,Computer Vision,2
+Code review,GUI,2
+Code review,HTTP/REST,2
+Code review,PostgreSQL,2
+Code review,Информационная безопасность,2
+Code review,Техническая документация,2
+Code review,ЦОС/сигналы,2
+Computer Vision,Docker,2
+Computer Vision,Архитектура ПО,2
+Computer Vision,Отладка,2
+Computer Vision,Сети TCP/IP,2
+Docker,HTTP/REST,2
+Docker,ML/нейросети,2
+Docker,Qt,2
+Docker,gRPC/Protobuf,2
+Docker,Высоконагруженные системы,2
+Docker,Математика,2
+Embedded,HTTP/REST,2
+Embedded,Java,2
+Embedded,Ассемблер,2
+Embedded,Высоконагруженные системы,2
+GUI,RTOS/QNX,2
+GUI,Unix/POSIX,2
+GUI,Драйверы/ядро ОС,2
+GUI,Информационная безопасность,2
+GUI,Компиляторы GCC/Clang,2
+Gamedev,Git,2
+Gamedev,Python,2
+Gamedev,Unit-тесты,2
+Gamedev,Windows,2
+Gamedev,Английский язык,2
+Gamedev,Техническая документация,2
+Git,Go,2
+Git,Rust,2
+Git,gRPC/Protobuf,2
+Go,QML,2
+Go,Windows,2
+Go,Математика,2
+Go,Сети TCP/IP,2
+Go,Схемотехника,2
+HTTP/REST,Java,2
+HTTP/REST,PostgreSQL,2
+HTTP/REST,Qt,2
+HTTP/REST,RTOS/QNX,2
+HTTP/REST,Windows,2
+HTTP/REST,Английский язык,2
+HTTP/REST,Высоконагруженные системы,2
+HTTP/REST,Драйверы/ядро ОС,2
+HTTP/REST,Математика,2
+HTTP/REST,Микроконтроллеры,2
+Java,QML,2
+Java,Unix/POSIX,2
+Java,Видео/мультимедиа,2
+Java,Компиляторы GCC/Clang,2
+Java,Микроконтроллеры,2
+Java,Сети TCP/IP,2
+Kubernetes,PostgreSQL,2
+Linux,Rust,2
+ML/нейросети,PostgreSQL,2
+ML/нейросети,STL,2
+ML/нейросети,Unit-тесты,2
+ML/нейросети,Отладка,2
+PostgreSQL,Видео/мультимедиа,2
+PostgreSQL,Драйверы/ядро ОС,2
+PostgreSQL,Математика,2
+PostgreSQL,Отладка,2
+PostgreSQL,Техническая документация,2
+Python,Компиляторы GCC/Clang,2
+QML,Оптимизация производительности,2
+Qt,Ассемблер,2
+Qt,Компиляторы GCC/Clang,2
+RTOS/QNX,Unit-тесты,2
+RTOS/QNX,Видео/мультимедиа,2
+RTOS/QNX,Информационная безопасность,2
+Rust,SQL/СУБД,2
+Rust,Алгоритмы и структуры данных,2
+Rust,Сети TCP/IP,2
+SQL/СУБД,Интерфейсы UART/SPI/I2C,2
+SQL/СУБД,Паттерны/SOLID,2
+SQL/СУБД,ЦОС/сигналы,2
+Unit-тесты,Интерфейсы UART/SPI/I2C,2
+Unit-тесты,Схемотехника,2
+Unit-тесты,ЦОС/сигналы,2
+Unix/POSIX,Английский язык,2
+Unix/POSIX,Математика,2
+Unix/POSIX,ООП,2
+Windows,gRPC/Protobuf,2
+Windows,Интерфейсы UART/SPI/I2C,2
+Windows,Компиляторы GCC/Clang,2
+gRPC/Protobuf,Архитектура ПО,2
+gRPC/Protobuf,Отладка,2
+Алгоритмы и структуры данных,Ассемблер,2
+Алгоритмы и структуры данных,Компиляторы GCC/Clang,2
+Английский язык,Многопоточность,2
+Архитектура ПО,Ассемблер,2
+Ассемблер,Отладка,2
+Высоконагруженные системы,Драйверы/ядро ОС,2
+Высоконагруженные системы,Интерфейсы UART/SPI/I2C,2
+Высоконагруженные системы,Паттерны/SOLID,2
+Высоконагруженные системы,ЦОС/сигналы,2
+Драйверы/ядро ОС,Математика,2
+Драйверы/ядро ОС,Паттерны/SOLID,2
+Драйверы/ядро ОС,Схемотехника,2
+Драйверы/ядро ОС,ЦОС/сигналы,2
+Интерфейсы UART/SPI/I2C,ООП,2
+Интерфейсы UART/SPI/I2C,Паттерны/SOLID,2
+Интерфейсы UART/SPI/I2C,Схемотехника,2
+Информационная безопасность,Паттерны/SOLID,2
+Информационная безопасность,Техническая документация,2
+Компиляторы GCC/Clang,Микроконтроллеры,2
+Компиляторы GCC/Clang,Многопоточность,2
+Математика,Микроконтроллеры,2
+Математика,Паттерны/SOLID,2
+Математика,Сети TCP/IP,2
+Математика,ЦОС/сигналы,2
+ООП,ЦОС/сигналы,2
+Сети TCP/IP,ЦОС/сигналы,2
+3D/графика,Android,1
+3D/графика,CUDA/GPU,1
+3D/графика,HTTP/REST,1
+3D/графика,ML/нейросети,1
+3D/графика,PostgreSQL,1
+3D/графика,SQL/СУБД,1
+3D/графика,Unit-тесты,1
+3D/графика,Windows,1
+3D/графика,Компиляторы GCC/Clang,1
+3D/графика,Паттерны/SOLID,1
+ARM,Code review,1
+ARM,GUI,1
+ARM,Java,1
+ARM,ML/нейросети,1
+ARM,Qt,1
+ARM,STL,1
+ARM,Видео/мультимедиа,1
+ARM,Математика,1
+Android,C#,1
+Android,Go,1
+Android,HTTP/REST,1
+Android,Драйверы/ядро ОС,1
+Android,Интерфейсы UART/SPI/I2C,1
+Android,Отладка,1
+Android,Техническая документация,1
+Bash/Shell,CI/CD,1
+Bash/Shell,Gamedev,1
+Bash/Shell,PostgreSQL,1
+Bash/Shell,Видео/мультимедиа,1
+Boost,CI/CD,1
+Boost,Computer Vision,1
+Boost,Java,1
+Boost,Английский язык,1
+Boost,Компиляторы GCC/Clang,1
+Boost,Микроконтроллеры,1
+Boost,Техническая документация,1
+C,CUDA/GPU,1
+C,gRPC/Protobuf,1
+C#,CUDA/GPU,1
+C#,Code review,1
+C#,Docker,1
+C#,Embedded,1
+C#,HTTP/REST,1
+C#,Kubernetes,1
+C#,PostgreSQL,1
+C#,Rust,1
+C#,Драйверы/ядро ОС,1
+C#,Компиляторы GCC/Clang,1
+C++,Kubernetes,1
+CI/CD,Embedded,1
+CI/CD,GUI,1
+CI/CD,Go,1
+CI/CD,HTTP/REST,1
+CI/CD,Java,1
+CI/CD,Английский язык,1
+CI/CD,Компиляторы GCC/Clang,1
+CI/CD,Техническая документация,1
+CMake,Go,1
+CMake,Java,1
+CMake,Ассемблер,1
+CMake,Высоконагруженные системы,1
+CUDA/GPU,Computer Vision,1
+CUDA/GPU,Docker,1
+CUDA/GPU,Java,1
+CUDA/GPU,ML/нейросети,1
+CUDA/GPU,Qt,1
+CUDA/GPU,SQL/СУБД,1
+CUDA/GPU,STL,1
+CUDA/GPU,Архитектура ПО,1
+CUDA/GPU,Микроконтроллеры,1
+CUDA/GPU,ООП,1
+CUDA/GPU,Техническая документация,1
+CUDA/GPU,ЦОС/сигналы,1
+Code review,Go,1
+Code review,Kubernetes,1
+Code review,Unix/POSIX,1
+Code review,gRPC/Protobuf,1
+Code review,Компиляторы GCC/Clang,1
+Code review,Микроконтроллеры,1
+Code review,ООП,1
+Code review,Схемотехника,1
+Computer Vision,GUI,1
+Computer Vision,PostgreSQL,1
+Computer Vision,Интерфейсы UART/SPI/I2C,1
+Computer Vision,Паттерны/SOLID,1
+Computer Vision,Техническая документация,1
+Docker,Английский язык,1
+Docker,Видео/мультимедиа,1
+Docker,Драйверы/ядро ОС,1
+Docker,Интерфейсы UART/SPI/I2C,1
+Docker,Компиляторы GCC/Clang,1
+Docker,Микроконтроллеры,1
+Docker,ООП,1
+Docker,Техническая документация,1
+Docker,ЦОС/сигналы,1
+Embedded,gRPC/Protobuf,1
+Embedded,Паттерны/SOLID,1
+GUI,Go,1
+GUI,ML/нейросети,1
+GUI,Ассемблер,1
+GUI,Высоконагруженные системы,1
+GUI,Интерфейсы UART/SPI/I2C,1
+Gamedev,Java,1
+Gamedev,Компиляторы GCC/Clang,1
+Gamedev,Отладка,1
+Gamedev,Паттерны/SOLID,1
+Gamedev,Сети TCP/IP,1
+Git,Информационная безопасность,1
+Git,Схемотехника,1
+Go,Kubernetes,1
+Go,RTOS/QNX,1
+Go,Unix/POSIX,1
+Go,Драйверы/ядро ОС,1
+Go,Многопоточность,1
+HTTP/REST,Kubernetes,1
+HTTP/REST,Rust,1
+HTTP/REST,ООП,1
+HTTP/REST,Отладка,1
+HTTP/REST,Схемотехника,1
+HTTP/REST,Техническая документация,1
+Java,Драйверы/ядро ОС,1
+Java,Интерфейсы UART/SPI/I2C,1
+Java,Информационная безопасность,1
+Java,Математика,1
+Kubernetes,SQL/СУБД,1
+Kubernetes,Интерфейсы UART/SPI/I2C,1
+Kubernetes,Оптимизация производительности,1
+ML/нейросети,Qt,1
+ML/нейросети,Rust,1
+ML/нейросети,Windows,1
+ML/нейросети,Английский язык,1
+ML/нейросети,Архитектура ПО,1
+ML/нейросети,Ассемблер,1
+PostgreSQL,Rust,1
+PostgreSQL,Интерфейсы UART/SPI/I2C,1
+PostgreSQL,Компиляторы GCC/Clang,1
+PostgreSQL,Оптимизация производительности,1
+PostgreSQL,ЦОС/сигналы,1
+QML,gRPC/Protobuf,1
+QML,Английский язык,1
+QML,Видео/мультимедиа,1
+QML,Информационная безопасность,1
+QML,Компиляторы GCC/Clang,1
+QML,Микроконтроллеры,1
+RTOS/QNX,SQL/СУБД,1
+RTOS/QNX,STL,1
+RTOS/QNX,Паттерны/SOLID,1
+Rust,Архитектура ПО,1
+Rust,Высоконагруженные системы,1
+Rust,Математика,1
+Rust,Отладка,1
+Rust,Техническая документация,1
+SQL/СУБД,gRPC/Protobuf,1
+SQL/СУБД,Видео/мультимедиа,1
+SQL/СУБД,Компиляторы GCC/Clang,1
+SQL/СУБД,Микроконтроллеры,1
+STL,Компиляторы GCC/Clang,1
+Unix/POSIX,gRPC/Protobuf,1
+Unix/POSIX,Компиляторы GCC/Clang,1
+Windows,Схемотехника,1
+Windows,ЦОС/сигналы,1
+gRPC/Protobuf,Компиляторы GCC/Clang,1
+Английский язык,Информационная безопасность,1
+Английский язык,Компиляторы GCC/Clang,1
+Английский язык,Схемотехника,1
+Ассемблер,Высоконагруженные системы,1
+Ассемблер,Микроконтроллеры,1
+Ассемблер,ООП,1
+Ассемблер,Техническая документация,1
+Видео/мультимедиа,Информационная безопасность,1
+Высоконагруженные системы,ООП,1
+Информационная безопасность,Компиляторы GCC/Clang,1
+Информационная безопасность,ООП,1
+Компиляторы GCC/Clang,Математика,1
+Компиляторы GCC/Clang,Паттерны/SOLID,1
+Компиляторы GCC/Clang,Техническая документация,1
+Микроконтроллеры,Оптимизация производительности,1
+Микроконтроллеры,Паттерны/SOLID,1
+ООП,Схемотехника,1
+Оптимизация производительности,Схемотехника,1
+Сети TCP/IP,Схемотехника,1
+Техническая документация,ЦОС/сигналы,1

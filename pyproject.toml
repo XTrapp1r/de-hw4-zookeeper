@@ -1,0 +1,9 @@
+[project]
+name = "hh-lake-hw4-zookeeper"
+version = "0.1.0"
+requires-python = ">=3.14"
+dependencies = [
+    "boto3>=1.43",
+    "kazoo>=2.10",
+    "playwright==1.63.0",
+]

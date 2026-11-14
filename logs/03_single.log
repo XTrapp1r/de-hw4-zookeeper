@@ -1,0 +1,42 @@
+
+# ===== Один координатор без отказов: те же 46 сплитов по 1 МБ, без искусственной задержки =====
+
+$ rm -rf work/03_single logs/03_single results/03_single && /Users/admin/Desktop/rustfs_hw/hw4/.venv/bin/python src/zkctl.py reset
+/hw4/skills/epoch: создан, version 0
+/hw4/skills/result: создан, version 0
+
+$ aws s3 rm s3://hh-lake/results/zk/03_single/ --recursive --quiet; true
+
+$ RUN=03_single COORD_ID=A /Users/admin/Desktop/rustfs_hw/hw4/.venv/bin/python src/coordinator.py --slow 0 | grep -v -E 'map-[0-9]+ attempt|kazoo: Connecting'
+17:00:15.367 [A] старт: pid 29535, прогон 03_single, FENCING=0, тайм-аут сессии 10 с, ZooKeeper 127.0.0.1:2181,127.0.0.1:2182,127.0.0.1:2183
+17:00:15.403 [A] kazoo: Session created, session_id: 216174078714773507 negotiated session timeout: 10000 connect timeout: 3333.3333333333335 read timeout: 6666.666666666667
+17:00:15.410 [A] kazoo: Zookeeper connection established, state: CONNECTED
+17:00:15.417 [A] состояние сессии ZooKeeper: CONNECTED
+17:00:15.441 [A] кандидат /hw4/skills/election/c_0000000000 (эфемерный+последовательный, сессия 0x300012de3710003)
+17:00:15.450 [A] СТАЛ ЛИДЕРОМ: узел c_0000000000 первый в очереди, эпоха 1 (версия /hw4/skills/epoch)
+17:00:15.893 [A] чекпоинт /hw4/skills/checkpoint: готово map 0 из 46, reduce 0 из 4
+17:00:16.326 [A] запущено воркеров: 2, pid [29542, 29543]; сплитов 46 по 1 МБ, редьюсеров 4, задержка map-задачи 0 с
+17:00:16.329 [A] map: к запуску 46 задач
+17:00:17.585 [A] reduce: к запуску 4 задач
+17:00:17.604 [A] reduce-1 attempt 1 ok, pid 29543, 0.02s
+17:00:17.612 [A] reduce-0 attempt 1 ok, pid 29542, 0.02s
+17:00:17.628 [A] reduce-2 attempt 1 ok, pid 29543, 0.02s
+17:00:17.637 [A] reduce-3 attempt 1 ok, pid 29542, 0.02s
+17:00:17.715 [A] КОНТРОЛЬ: вакансий варианта 1815, навыков 57 (сумма 8078), пар 1227 (сумма 17072), троек 6630 (сумма 22826); sha256 pairs_k2.csv 955bdeaa2d72a9a6
+17:00:18.619 [A] CSV выгружены: s3://hh-lake/results/zk/03_single/coord-A-e1/ (и копия results/03_single/coord-A-e1/)
+17:00:18.638 [A] записал результат: /hw4/skills/result версия 1 -> s3://hh-lake/results/zk/03_single/coord-A-e1/ (setData без проверки эпохи)
+17:00:18.676 [A] kazoo: Closing connection to 127.0.0.1:2183
+17:00:18.679 [A] kazoo: Zookeeper session closed, state: CLOSED
+17:00:18.686 [A] состояние сессии ZooKeeper: LOST (сессию закрыли мы сами)
+17:00:18.690 [A] готово, сессия закрыта
+
+$ /Users/admin/Desktop/rustfs_hw/hw4/.venv/bin/python src/zkctl.py state
+/hw4/skills/epoch: эпоха (version) 1, последний лидер A
+/hw4/skills/result: version 1, mzxid 0x1600000098, данные: {"by": "coord-A", "epoch": 1, "result": "s3://hh-lake/results/zk/03_single/coord-A-e1/", "control": "вакансий варианта 1815, навыков 57 (сумма 8078), пар 1227 (сумма 17072), троек 6630 (сумма 22826)", "at": "2026-11-14T17:00:18.623"}
+/hw4/skills/election: кандидатов нет
+/hw4/skills/checkpoint: coord-A (эпоха 1): map 46, reduce 4
+
+$ /Users/admin/Desktop/rustfs_hw/hw4/.venv/bin/python src/zkctl.py compare 03_single
+ДЗ-3 s3://hh-lake/results/mapreduce/: вакансий варианта 1815; skills_k1.csv: 57 строк, сумма 8078, sha256 10d2050c1be05ce8; pairs_k2.csv: 1227 строк, сумма 17072, sha256 955bdeaa2d72a9a6; triples_k3.csv: 6630 строк, сумма 22826, sha256 336e66fb1832619c
+results/zk/03_single/coord-A-e1/: вакансий 1815; skills_k1.csv: 57/8078/10d2050c1be05ce8; pairs_k2.csv: 1227/17072/955bdeaa2d72a9a6; triples_k3.csv: 6630/22826/336e66fb1832619c -> СОВПАДАЕТ с ДЗ-3  <- на него указывает /hw4/skills/result
+ИТОГ: все результаты прогона побайтно совпали с ДЗ-3

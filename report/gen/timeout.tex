@@ -1,0 +1,8 @@
+\begin{Verbatim}
+$ grep -h 'Session created' logs/03_nofencing/coord-A.log logs/03_nofencing/coord-B.log
+17:00:21.502 [A] kazoo: Session created, session_id: 72058890639376396 negotiated session timeout: 10000 connect timeout: 3333.3333333333335 read timeout: 6666.666666666667
+17:00:21.716 [B] kazoo: Session created, session_id: 216174078714773510 negotiated session timeout: 10000 connect timeout: 3333.3333333333335 read timeout: 6666.666666666667
+$ zkcons
+сервер :2181  sid=0x100012de378000c    to=10000
+сервер :2183  sid=0x300012de3710006    to=10000
+\end{Verbatim}

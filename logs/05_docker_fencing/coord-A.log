@@ -1,0 +1,83 @@
+17:05:09.586 [A] старт: pid 33709, прогон 05_docker_fencing, FENCING=1, тайм-аут сессии 10 с, ZooKeeper 127.0.0.1:2181,127.0.0.1:2182,127.0.0.1:2183
+17:05:09.591 [A] kazoo: Connecting to 127.0.0.1(127.0.0.1):2182, use_ssl: False
+17:05:09.606 [A] kazoo: Session created, session_id: 144115347892076550 negotiated session timeout: 10000 connect timeout: 3333.3333333333335 read timeout: 6666.666666666667
+17:05:09.606 [A] kazoo: Zookeeper connection established, state: CONNECTED
+17:05:09.606 [A] состояние сессии ZooKeeper: CONNECTED
+17:05:09.621 [A] кандидат /hw4/skills/election/c_0000000000 (эфемерный+последовательный, сессия 0x200002535ca0006)
+17:05:09.624 [A] СТАЛ ЛИДЕРОМ: узел c_0000000000 первый в очереди, эпоха 1 (версия /hw4/skills/epoch)
+17:05:09.962 [A] чекпоинт /hw4/skills/checkpoint: готово map 0 из 46, reduce 0 из 4
+17:05:10.409 [A] запущено воркеров: 2, pid [33743, 33744]; сплитов 46 по 1 МБ, редьюсеров 4, задержка map-задачи 1 с
+17:05:10.410 [A] map: к запуску 46 задач
+17:05:11.438 [A] map-1 attempt 1 ok, pid 33744, 1.03s
+17:05:11.445 [A] map-0 attempt 1 ok, pid 33743, 1.03s
+17:05:12.513 [A] map-2 attempt 1 ok, pid 33744, 1.07s
+17:05:12.540 [A] map-3 attempt 1 ok, pid 33743, 1.08s
+17:05:13.560 [A] map-4 attempt 1 ok, pid 33744, 1.02s
+17:05:13.567 [A] map-5 attempt 1 ok, pid 33743, 1.02s
+17:05:14.603 [A] map-6 attempt 1 ok, pid 33744, 1.04s
+17:05:14.610 [A] map-7 attempt 1 ok, pid 33743, 1.03s
+17:05:15.646 [A] map-9 attempt 1 ok, pid 33743, 1.03s
+17:05:15.653 [A] map-8 attempt 1 ok, pid 33744, 1.04s
+17:05:16.694 [A] map-10 attempt 1 ok, pid 33743, 1.04s
+17:05:16.698 [A] map-11 attempt 1 ok, pid 33744, 1.04s
+17:05:17.725 [A] map-12 attempt 1 ok, pid 33743, 1.03s
+17:05:17.735 [A] map-13 attempt 1 ok, pid 33744, 1.03s
+17:05:58.074 [A] map-14 attempt 1 ok, pid 33743, 1.05s
+17:05:58.075 [A] kazoo: Connection dropped: socket connection broken
+17:05:58.075 [A] kazoo: Transition to CONNECTING
+17:05:58.075 [A] kazoo: Zookeeper connection lost
+17:05:58.075 [A] состояние сессии ZooKeeper: SUSPENDED
+17:05:58.075 [A] kazoo: Connecting to 127.0.0.1(127.0.0.1):2183, use_ssl: False
+17:05:58.080 [A] kazoo: Session has expired
+17:05:58.080 [A] kazoo: Zookeeper session closed, state: EXPIRED_SESSION
+17:05:58.080 [A] состояние сессии ZooKeeper: LOST
+17:05:58.080 [A] kazoo: Connecting to 127.0.0.1(127.0.0.1):2181, use_ssl: False
+17:05:58.084 [A] kazoo: Session created, session_id: 72057753908346899 negotiated session timeout: 10000 connect timeout: 3333.3333333333335 read timeout: 6666.666666666667
+17:05:58.084 [A] kazoo: Zookeeper connection established, state: CONNECTED
+17:05:58.084 [A] состояние сессии ZooKeeper: CONNECTED
+17:05:58.207 [A] map-0014: уже отмечена в чекпоинте другим координатором (выход совпадает, мой отброшен)
+17:05:58.207 [A] map-15 attempt 1 ok, pid 33744, 1.05s
+17:05:59.263 [A] map-16 attempt 1 ok, pid 33743, 1.05s
+17:05:59.269 [A] map-17 attempt 1 ok, pid 33744, 1.05s
+17:06:00.332 [A] map-18 attempt 1 ok, pid 33743, 1.06s
+17:06:00.344 [A] map-19 attempt 1 ok, pid 33744, 1.07s
+17:06:01.420 [A] map-20 attempt 1 ok, pid 33743, 1.08s
+17:06:01.495 [A] map-21 attempt 1 ok, pid 33744, 1.14s
+17:06:02.473 [A] map-22 attempt 1 ok, pid 33743, 1.05s
+17:06:02.525 [A] map-23 attempt 1 ok, pid 33744, 1.03s
+17:06:03.526 [A] map-24 attempt 1 ok, pid 33743, 1.04s
+17:06:03.559 [A] map-25 attempt 1 ok, pid 33744, 1.03s
+17:06:04.565 [A] map-26 attempt 1 ok, pid 33743, 1.04s
+17:06:04.577 [A] map-27 attempt 1 ok, pid 33744, 1.01s
+17:06:05.596 [A] map-28 attempt 1 ok, pid 33743, 1.03s
+17:06:05.603 [A] map-29 attempt 1 ok, pid 33744, 1.02s
+17:06:06.624 [A] map-30 attempt 1 ok, pid 33743, 1.02s
+17:06:06.640 [A] map-31 attempt 1 ok, pid 33744, 1.03s
+17:06:07.649 [A] map-32 attempt 1 ok, pid 33743, 1.02s
+17:06:07.664 [A] map-33 attempt 1 ok, pid 33744, 1.02s
+17:06:08.688 [A] map-34 attempt 1 ok, pid 33743, 1.04s
+17:06:08.693 [A] map-35 attempt 1 ok, pid 33744, 1.03s
+17:06:09.723 [A] map-36 attempt 1 ok, pid 33743, 1.03s
+17:06:09.736 [A] map-37 attempt 1 ok, pid 33744, 1.04s
+17:06:10.772 [A] map-39 attempt 1 ok, pid 33744, 1.03s
+17:06:10.786 [A] map-38 attempt 1 ok, pid 33743, 1.06s
+17:06:11.804 [A] map-40 attempt 1 ok, pid 33744, 1.03s
+17:06:11.815 [A] map-41 attempt 1 ok, pid 33743, 1.03s
+17:06:12.835 [A] map-42 attempt 1 ok, pid 33744, 1.02s
+17:06:12.845 [A] map-43 attempt 1 ok, pid 33743, 1.02s
+17:06:13.866 [A] map-45 attempt 1 ok, pid 33743, 1.02s
+17:06:13.870 [A] map-44 attempt 1 ok, pid 33744, 1.03s
+17:06:13.873 [A] map: 32 моих задач уже были отмечены в чекпоинте другим координатором: map-0014 .. map-0044
+17:06:13.873 [A] reduce: к запуску 4 задач
+17:06:13.893 [A] reduce-1 attempt 1 ok, pid 33744, 0.02s
+17:06:13.897 [A] reduce-01: уже отмечена в чекпоинте другим координатором (выход совпадает, мой отброшен)
+17:06:13.897 [A] reduce-0 attempt 1 ok, pid 33743, 0.02s
+17:06:13.914 [A] reduce-2 attempt 1 ok, pid 33744, 0.02s
+17:06:13.919 [A] reduce-3 attempt 1 ok, pid 33743, 0.02s
+17:06:13.921 [A] reduce: 4 моих задач уже были отмечены в чекпоинте другим координатором: reduce-01 .. reduce-03
+17:06:13.985 [A] КОНТРОЛЬ: вакансий варианта 1815, навыков 57 (сумма 8078), пар 1227 (сумма 17072), троек 6630 (сумма 22826); sha256 pairs_k2.csv 955bdeaa2d72a9a6
+17:06:14.865 [A] CSV выгружены: s3://hh-lake/results/zk/05_docker_fencing/coord-A-e1/ (и копия results/05_docker_fencing/coord-A-e1/)
+17:06:14.895 [A] ЗАПИСЬ РЕЗУЛЬТАТА ОТКЛОНЕНА: BadVersionError в check(/hw4/skills/epoch, version=1) - текущая эпоха 2 у B; указатель /hw4/skills/result не изменён (ответ multi: ['BadVersionError', 'RuntimeInconsistency'])
+17:06:14.917 [A] kazoo: Closing connection to 127.0.0.1:2181
+17:06:14.919 [A] kazoo: Zookeeper session closed, state: CLOSED
+17:06:14.926 [A] состояние сессии ZooKeeper: LOST (сессию закрыли мы сами)

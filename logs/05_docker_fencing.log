@@ -1,0 +1,145 @@
+
+# ===== Подготовка: чистое дерево /hw4/skills в ZooKeeper, пустые work/05_docker_fencing и logs/05_docker_fencing =====
+
+$ rm -rf work/05_docker_fencing logs/05_docker_fencing results/05_docker_fencing && mkdir -p logs/05_docker_fencing && /Users/admin/Desktop/rustfs_hw/hw4/.venv/bin/python src/zkctl.py reset
+/hw4/skills/epoch: создан, version 0
+/hw4/skills/result: создан, version 0
+
+$ aws s3 rm s3://hh-lake/results/zk/05_docker_fencing/ --recursive --quiet; echo 'старые результаты прогона 05_docker_fencing в S3 удалены'
+старые результаты прогона 05_docker_fencing в S3 удалены
+
+# ===== Запуск двух копий координатора: A, затем B (FENCING=1, тайм-аут сессии 10 с, --chunk-mb 1 --workers 2 --slow 1.0) =====
+17:05:09.934 A: pid 33709, B: pid 33725
+
+$ grep -E 'кандидат|СТАЛ ЛИДЕРОМ|запасной' logs/05_docker_fencing/coord-A.log logs/05_docker_fencing/coord-B.log
+logs/05_docker_fencing/coord-A.log:17:05:09.621 [A] кандидат /hw4/skills/election/c_0000000000 (эфемерный+последовательный, сессия 0x200002535ca0006)
+logs/05_docker_fencing/coord-A.log:17:05:09.624 [A] СТАЛ ЛИДЕРОМ: узел c_0000000000 первый в очереди, эпоха 1 (версия /hw4/skills/epoch)
+logs/05_docker_fencing/coord-B.log:17:05:09.818 [B] кандидат /hw4/skills/election/c_0000000001 (эфемерный+последовательный, сессия 0x200002535ca0007)
+logs/05_docker_fencing/coord-B.log:17:05:09.820 [B] запасной: лидер сейчас A (узел c_0000000000), жду исчезновения его узла (watch)
+
+$ /Users/admin/Desktop/rustfs_hw/hw4/.venv/bin/python src/zkctl.py state
+/hw4/skills/epoch: эпоха (version) 1, последний лидер A
+/hw4/skills/result: version 0, mzxid 0x3000000dd, данные: (пусто)
+/hw4/skills/election: c_0000000000 (A, сессия 0x200002535ca0006), c_0000000001 (B, сессия 0x200002535ca0007)
+/hw4/skills/checkpoint: 
+
+$ grep -h 'Session created' logs/05_docker_fencing/coord-A.log logs/05_docker_fencing/coord-B.log
+17:05:09.606 [A] kazoo: Session created, session_id: 144115347892076550 negotiated session timeout: 10000 connect timeout: 3333.3333333333335 read timeout: 6666.666666666667
+17:05:09.809 [B] kazoo: Session created, session_id: 144115347892076551 negotiated session timeout: 10000 connect timeout: 3333.3333333333335 read timeout: 6666.666666666667
+
+$ zkcons
+сервер :2182  sid=0x200002535ca0006	to=10000
+сервер :2182  sid=0x200002535ca0007	to=10000
+
+# ===== Ждём, пока A сделает 14 map-задач из 46, и приостанавливаем его (kill -STOP) =====
+
+$ /Users/admin/Desktop/rustfs_hw/hw4/.venv/bin/python src/zkctl.py wait-ckpt 14
+в чекпоинте 14 map-задач (ждали >= 14)
+17:05:17.926 kill -STOP 33709 - лидер A приостановлен (T_PAUSE=17:05:17.898)
+
+$ ps -o pid,stat,command -p 33709 | cut -c1-90
+  PID STAT COMMAND
+33709 T    /opt/homebrew/Cellar/python@3.14/3.14.8/Frameworks/Python.framework/Versions/3.
+
+# ===== Ждём завершения запасного B (A всё это время стоит) =====
+17:05:48.177 B завершился, код выхода 0
+
+$ /Users/admin/Desktop/rustfs_hw/hw4/.venv/bin/python src/zkctl.py state
+/hw4/skills/epoch: эпоха (version) 2, последний лидер B
+/hw4/skills/result: version 1, mzxid 0x30000011f, данные: {"by": "coord-B", "epoch": 2, "result": "s3://hh-lake/results/zk/05_docker_fencing/coord-B-e2/", "control": "вакансий варианта 1815, навыков 57 (сумма 8078), пар 1227 (сумма 17072), троек 6630 (сумма 22826)", "at": "2026-11-14T17:05:48.000"}
+/hw4/skills/election: кандидатов нет
+/hw4/skills/checkpoint: coord-A (эпоха 1): map 14, reduce 0; coord-B (эпоха 2): map 32, reduce 4
+
+$ /Users/admin/Desktop/rustfs_hw/hw4/.venv/bin/python src/zkctl.py leader-change 17:05:17.898 logs/05_docker_fencing/coord-B.log
+пауза лидера 17:05:17.898 -> watch у запасного 17:05:29.153 (+11.26 с) -> запасной СТАЛ ЛИДЕРОМ 17:05:29.158 (+11.26 с)
+СМЕНА ЛИДЕРА: 11.26 с от SIGSTOP лидера до нового лидера
+
+# ===== Возобновляем A (kill -CONT) после ~40 с паузы =====
+17:05:58.071 kill -CONT 33709
+17:06:15.006 A завершился, код выхода 3
+
+# ===== Журналы координаторов (полностью - logs/05_docker_fencing/coord-A.log и coord-B.log) =====
+
+$ grep -v -E 'map-[0-9]+ attempt|reduce-[0-9] attempt|kazoo: Connecting' logs/05_docker_fencing/coord-A.log
+17:05:09.586 [A] старт: pid 33709, прогон 05_docker_fencing, FENCING=1, тайм-аут сессии 10 с, ZooKeeper 127.0.0.1:2181,127.0.0.1:2182,127.0.0.1:2183
+17:05:09.606 [A] kazoo: Session created, session_id: 144115347892076550 negotiated session timeout: 10000 connect timeout: 3333.3333333333335 read timeout: 6666.666666666667
+17:05:09.606 [A] kazoo: Zookeeper connection established, state: CONNECTED
+17:05:09.606 [A] состояние сессии ZooKeeper: CONNECTED
+17:05:09.621 [A] кандидат /hw4/skills/election/c_0000000000 (эфемерный+последовательный, сессия 0x200002535ca0006)
+17:05:09.624 [A] СТАЛ ЛИДЕРОМ: узел c_0000000000 первый в очереди, эпоха 1 (версия /hw4/skills/epoch)
+17:05:09.962 [A] чекпоинт /hw4/skills/checkpoint: готово map 0 из 46, reduce 0 из 4
+17:05:10.409 [A] запущено воркеров: 2, pid [33743, 33744]; сплитов 46 по 1 МБ, редьюсеров 4, задержка map-задачи 1 с
+17:05:10.410 [A] map: к запуску 46 задач
+17:05:58.075 [A] kazoo: Connection dropped: socket connection broken
+17:05:58.075 [A] kazoo: Transition to CONNECTING
+17:05:58.075 [A] kazoo: Zookeeper connection lost
+17:05:58.075 [A] состояние сессии ZooKeeper: SUSPENDED
+17:05:58.080 [A] kazoo: Session has expired
+17:05:58.080 [A] kazoo: Zookeeper session closed, state: EXPIRED_SESSION
+17:05:58.080 [A] состояние сессии ZooKeeper: LOST
+17:05:58.084 [A] kazoo: Session created, session_id: 72057753908346899 negotiated session timeout: 10000 connect timeout: 3333.3333333333335 read timeout: 6666.666666666667
+17:05:58.084 [A] kazoo: Zookeeper connection established, state: CONNECTED
+17:05:58.084 [A] состояние сессии ZooKeeper: CONNECTED
+17:05:58.207 [A] map-0014: уже отмечена в чекпоинте другим координатором (выход совпадает, мой отброшен)
+17:06:13.873 [A] map: 32 моих задач уже были отмечены в чекпоинте другим координатором: map-0014 .. map-0044
+17:06:13.873 [A] reduce: к запуску 4 задач
+17:06:13.897 [A] reduce-01: уже отмечена в чекпоинте другим координатором (выход совпадает, мой отброшен)
+17:06:13.921 [A] reduce: 4 моих задач уже были отмечены в чекпоинте другим координатором: reduce-01 .. reduce-03
+17:06:13.985 [A] КОНТРОЛЬ: вакансий варианта 1815, навыков 57 (сумма 8078), пар 1227 (сумма 17072), троек 6630 (сумма 22826); sha256 pairs_k2.csv 955bdeaa2d72a9a6
+17:06:14.865 [A] CSV выгружены: s3://hh-lake/results/zk/05_docker_fencing/coord-A-e1/ (и копия results/05_docker_fencing/coord-A-e1/)
+17:06:14.895 [A] ЗАПИСЬ РЕЗУЛЬТАТА ОТКЛОНЕНА: BadVersionError в check(/hw4/skills/epoch, version=1) - текущая эпоха 2 у B; указатель /hw4/skills/result не изменён (ответ multi: ['BadVersionError', 'RuntimeInconsistency'])
+17:06:14.917 [A] kazoo: Closing connection to 127.0.0.1:2181
+17:06:14.919 [A] kazoo: Zookeeper session closed, state: CLOSED
+17:06:14.926 [A] состояние сессии ZooKeeper: LOST (сессию закрыли мы сами)
+
+$ grep -v -E 'map-[0-9]+ attempt|reduce-[0-9] attempt|kazoo: Connecting' logs/05_docker_fencing/coord-B.log
+17:05:09.802 [B] старт: pid 33725, прогон 05_docker_fencing, FENCING=1, тайм-аут сессии 10 с, ZooKeeper 127.0.0.1:2181,127.0.0.1:2182,127.0.0.1:2183
+17:05:09.809 [B] kazoo: Session created, session_id: 144115347892076551 negotiated session timeout: 10000 connect timeout: 3333.3333333333335 read timeout: 6666.666666666667
+17:05:09.810 [B] kazoo: Zookeeper connection established, state: CONNECTED
+17:05:09.810 [B] состояние сессии ZooKeeper: CONNECTED
+17:05:09.818 [B] кандидат /hw4/skills/election/c_0000000001 (эфемерный+последовательный, сессия 0x200002535ca0007)
+17:05:09.820 [B] запасной: лидер сейчас A (узел c_0000000000), жду исчезновения его узла (watch)
+17:05:29.153 [B] сработал watch: узел c_0000000000 удалён -> пересчитываю очередь кандидатов
+17:05:29.158 [B] СТАЛ ЛИДЕРОМ: узел c_0000000001 первый в очереди, эпоха 2 (версия /hw4/skills/epoch)
+17:05:29.537 [B] чекпоинт /hw4/skills/checkpoint: готово map 14 из 46, reduce 0 из 4 (сделали: A в эпохе 1 - 14)
+17:05:29.978 [B] запущено воркеров: 2, pid [33977, 33978]; сплитов 46 по 1 МБ, редьюсеров 4, задержка map-задачи 1 с
+17:05:29.978 [B] map: к запуску 32 задач, 14 пропускаю - они уже в чекпоинте
+17:05:46.692 [B] reduce: к запуску 4 задач
+17:05:46.809 [B] КОНТРОЛЬ: вакансий варианта 1815, навыков 57 (сумма 8078), пар 1227 (сумма 17072), троек 6630 (сумма 22826); sha256 pairs_k2.csv 955bdeaa2d72a9a6
+17:05:47.992 [B] CSV выгружены: s3://hh-lake/results/zk/05_docker_fencing/coord-B-e2/ (и копия results/05_docker_fencing/coord-B-e2/)
+17:05:48.025 [B] записал результат: /hw4/skills/result версия 1 -> s3://hh-lake/results/zk/05_docker_fencing/coord-B-e2/ (multi: check эпохи 2 + setData)
+17:05:48.062 [B] kazoo: Closing connection to 127.0.0.1:2182
+17:05:48.063 [B] kazoo: Zookeeper session closed, state: CLOSED
+17:05:48.074 [B] состояние сессии ZooKeeper: LOST (сессию закрыли мы сами)
+17:05:48.083 [B] готово, сессия закрыта
+
+# ===== Итог: кто записал результат, версия указателя, сверка с ДЗ-3 =====
+
+$ grep -h -E 'записал результат|ОТКЛОНЕНА|BadVersion' logs/05_docker_fencing/coord-*.log | sort
+17:05:48.025 [B] записал результат: /hw4/skills/result версия 1 -> s3://hh-lake/results/zk/05_docker_fencing/coord-B-e2/ (multi: check эпохи 2 + setData)
+17:06:14.895 [A] ЗАПИСЬ РЕЗУЛЬТАТА ОТКЛОНЕНА: BadVersionError в check(/hw4/skills/epoch, version=1) - текущая эпоха 2 у B; указатель /hw4/skills/result не изменён (ответ multi: ['BadVersionError', 'RuntimeInconsistency'])
+
+$ zkcli 127.0.0.1:2181 get -s /hw4/skills/result | grep -E '^\{|dataVersion|mtime|mzxid'
+{"by": "coord-B", "epoch": 2, "result": "s3://hh-lake/results/zk/05_docker_fencing/coord-B-e2/", "control": "вакансий варианта 1815, навыков 57 (сумма 8078), пар 1227 (сумма 17072), троек 6630 (сумма 22826)", "at": "2026-11-14T17:05:48.000"}
+mtime = Sat Nov 14 17:05:48 MSK 2026
+dataVersion = 1
+
+$ zkcli 127.0.0.1:2182 get -s /hw4/skills/epoch | grep -E '^[A-Z]$|dataVersion'
+B
+dataVersion = 2
+
+$ /Users/admin/Desktop/rustfs_hw/hw4/.venv/bin/python src/zkctl.py state
+/hw4/skills/epoch: эпоха (version) 2, последний лидер B
+/hw4/skills/result: version 1, mzxid 0x30000011f, данные: {"by": "coord-B", "epoch": 2, "result": "s3://hh-lake/results/zk/05_docker_fencing/coord-B-e2/", "control": "вакансий варианта 1815, навыков 57 (сумма 8078), пар 1227 (сумма 17072), троек 6630 (сумма 22826)", "at": "2026-11-14T17:05:48.000"}
+/hw4/skills/election: кандидатов нет
+/hw4/skills/checkpoint: coord-A (эпоха 1): map 14, reduce 0; coord-B (эпоха 2): map 32, reduce 4
+
+$ /Users/admin/Desktop/rustfs_hw/hw4/.venv/bin/python src/zkctl.py leader-change 17:05:17.898 logs/05_docker_fencing/coord-B.log
+пауза лидера 17:05:17.898 -> watch у запасного 17:05:29.153 (+11.26 с) -> запасной СТАЛ ЛИДЕРОМ 17:05:29.158 (+11.26 с)
+СМЕНА ЛИДЕРА: 11.26 с от SIGSTOP лидера до нового лидера
+
+$ /Users/admin/Desktop/rustfs_hw/hw4/.venv/bin/python src/zkctl.py compare 05_docker_fencing
+ДЗ-3 s3://hh-lake/results/mapreduce/: вакансий варианта 1815; skills_k1.csv: 57 строк, сумма 8078, sha256 10d2050c1be05ce8; pairs_k2.csv: 1227 строк, сумма 17072, sha256 955bdeaa2d72a9a6; triples_k3.csv: 6630 строк, сумма 22826, sha256 336e66fb1832619c
+results/zk/05_docker_fencing/coord-A-e1/: вакансий 1815; skills_k1.csv: 57/8078/10d2050c1be05ce8; pairs_k2.csv: 1227/17072/955bdeaa2d72a9a6; triples_k3.csv: 6630/22826/336e66fb1832619c -> СОВПАДАЕТ с ДЗ-3
+results/zk/05_docker_fencing/coord-B-e2/: вакансий 1815; skills_k1.csv: 57/8078/10d2050c1be05ce8; pairs_k2.csv: 1227/17072/955bdeaa2d72a9a6; triples_k3.csv: 6630/22826/336e66fb1832619c -> СОВПАДАЕТ с ДЗ-3  <- на него указывает /hw4/skills/result
+ИТОГ: все результаты прогона побайтно совпали с ДЗ-3

@@ -1,0 +1,12 @@
+\begin{Verbatim}
+$ grep -h -E 'записал результат|ОТКЛОНЕНА|BadVersion' logs/04_fencing/coord-*.log | sort
+17:02:09.119 [B] записал результат: /hw4/skills/result версия 1 -> s3://hh-lake/results/zk/04_fencing/coord-B-e2/ (multi: check эпохи 2 + setData)
+17:02:36.624 [A] ЗАПИСЬ РЕЗУЛЬТАТА ОТКЛОНЕНА: BadVersionError в check(/hw4/skills/epoch, version=1) - текущая эпоха 2 у B; указатель /hw4/skills/result не изменён (ответ multi: ['BadVersionError', 'RuntimeInconsistency'])
+$ zkcli 127.0.0.1:2181 get -s /hw4/skills/result | grep -E '^\{|dataVersion|mtime|mzxid'
+{"by": "coord-B", "epoch": 2, "result": "s3://hh-lake/results/zk/04_fencing/coord-B-e2/", "control": "вакансий варианта 1815, навыков 57 (сумма 8078), пар 1227 (сумма 17072), троек 6630 (сумма 22826)", "at": "2026-11-14T17:02:09.097"}
+dataVersion = 1
+$ python src/zkctl.py compare 04_fencing
+results/zk/04_fencing/coord-A-e1/: вакансий 1815; skills_k1.csv: 57/8078/10d2050c1be05ce8; pairs_k2.csv: 1227/17072/955bdeaa2d72a9a6; triples_k3.csv: 6630/22826/336e66fb1832619c -> СОВПАДАЕТ с ДЗ-3
+results/zk/04_fencing/coord-B-e2/: вакансий 1815; skills_k1.csv: 57/8078/10d2050c1be05ce8; pairs_k2.csv: 1227/17072/955bdeaa2d72a9a6; triples_k3.csv: 6630/22826/336e66fb1832619c -> СОВПАДАЕТ с ДЗ-3  <- на него указывает /hw4/skills/result
+ИТОГ: все результаты прогона побайтно совпали с ДЗ-3
+\end{Verbatim}

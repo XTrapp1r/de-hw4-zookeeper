@@ -1,0 +1,18 @@
+\begin{Verbatim}
+$ grep -v -E '^(WATCHER::|WatchedEvent|Connecting|Welcome|JLine|$)' logs/02_window2.log | sed 's/\[zk: /\n[zk: /g' | grep -v '^$'
+[zk: 127.0.0.1:2182(CONNECTED) 0] Created /hw4-ephemeral
+ephemeralOwner = 0x200012de6da0001
+$ for p in 2181 2182 2183; do echo dump | nc localhost $p | grep -A3 "Sessions with Ephemerals"; done
+Sessions with Ephemerals (1):
+0x200012de6da0001:
+    /hw4-ephemeral
+16:59:35.187 закрываю окно 2
+...
+17:00:00.110 через 25 с: /hw4-ephemeral ещё есть (сессия окна 2 ещё не истекла)
+17:00:04.782 узел /hw4-ephemeral исчез через 29 с после закрытия окна (сессия zkCli 30 с истекла)
+$ zkcli 127.0.0.1:2181 get -s /hw4-ephemeral2 | grep -E 'второй|ephemeralOwner'
+второй эфемерный
+ephemeralOwner = 0x300012de3710002
+$ zkcli 127.0.0.1:2181 stat /hw4-ephemeral2
+Node does not exist: /hw4-ephemeral2
+\end{Verbatim}

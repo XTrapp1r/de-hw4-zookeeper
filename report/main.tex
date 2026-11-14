@@ -1,0 +1,198 @@
+\documentclass[12pt,a4paper]{article}
+
+\usepackage{fontspec}
+\usepackage{polyglossia}
+\setdefaultlanguage{russian}
+\setotherlanguage{english}
+\setmainfont{Times New Roman}[Ligatures=TeX]
+\setmonofont{Menlo}[Scale=0.80]
+\newfontfamily\cyrillicfont{Times New Roman}[Ligatures=TeX]
+\newfontfamily\cyrillicfonttt{Menlo}[Scale=0.80]
+
+\usepackage[left=2.2cm,right=1.5cm,top=2cm,bottom=2cm]{geometry}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{fvextra}
+\usepackage{enumitem}
+\usepackage{caption}
+\usepackage{booktabs}
+\usepackage[hidelinks]{hyperref}
+\usepackage{xurl}
+
+\linespread{1.08}
+\setlength{\parindent}{1.25cm}
+\setlist{nosep,leftmargin=*}
+\widowpenalty=10000
+\clubpenalty=10000
+\graphicspath{{../screenshots/}}
+\fvset{fontsize=\scriptsize,frame=single,framesep=1.5mm,breaklines=true,breakanywhere=true}
+\captionsetup{font=small,labelsep=period}
+\newcommand{\code}[1]{\texttt{#1}}
+\sloppy
+\setlength{\emergencystretch}{4em}
+\input{gen/numbers.tex}
+
+\begin{document}
+
+\begin{titlepage}
+\centering
+\vspace*{3cm}
+{\large Домашнее задание 4\par}
+\vspace{1.5cm}
+{\LARGE\bfseries Обеспечение отказоустойчивости\\ средствами Apache ZooKeeper\par}
+\vspace{2cm}
+\begin{flushright}
+Выполнил: Апрелков Михаил Павлович\\
+ИИИ-3-ИнжДан-1-5
+\end{flushright}
+\vfill
+2026
+\end{titlepage}
+\setcounter{page}{2}
+
+\section{Стенд}
+
+MacBook (Apple M5 Pro, macOS 26). OpenJDK 17 (\code{JAVA\_HOME} в \code{infra/env.sh}), ZooKeeper 3.9.6 в трёх
+копиях \code{zk/zk1..3} на одной машине, клиенты --- \code{zkCli.sh} и Python-библиотека kazoo. Координатор --- MapReduce из ДЗ-3
+(пары навыков вакансий C/C++, данные в RustFS со стенда ДЗ-2). Репозиторий: \url{https://github.com/XTrapp1r/de-hw4-zookeeper},
+вывод всех команд --- \code{logs/*.log}, журналы координаторов --- \code{logs/<прогон>/coord-A.log}, \code{coord-B.log}.
+
+\input{gen/install.tex}
+
+\section{Ансамбль}
+
+Строки \code{server.N} у всех трёх конфигураций одинаковые, свои только \code{clientPort}, порт AdminServer и \code{dataDir}.
+В \code{dataDir} лежит \code{myid} с номером сервера.
+
+\input{gen/config.tex}
+
+После \code{zkServer.sh start} один сервер --- лидер, два --- последователи:
+
+\input{gen/roles.tex}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.32\textwidth]{admin_zk1.png}\hfill
+\includegraphics[width=0.32\textwidth]{admin_zk2.png}\hfill
+\includegraphics[width=0.32\textwidth]{admin_zk3.png}
+\caption{AdminServer \code{/commands/leader} трёх серверов}
+\end{figure}
+
+Останавливаем лидера: оставшиеся два выбирают нового, запись и чтение работают. Останавливаем второй сервер: последний жив
+(\code{imok}), но без кворума не обслуживает клиентов, сессия не открывается. После запуска обоих кворум и данные на месте.
+
+\input{gen/quorum.tex}
+
+\textbf{Эфемерный узел.} Во втором окне \code{zkCli} создаёт узел \code{-e}, в первом виден его \code{ephemeralOwner}. Окно
+закрыто без \code{quit} --- узел исчез через \EphGone~с: истёк тайм-аут сессии \code{zkCli} 30~с, который сервер отсчитывает
+от последнего пакета клиента. При \code{quit} узел исчезает сразу.
+
+\input{gen/ephemeral.tex}
+
+То же в настоящей второй вкладке терминала, закрытой крестиком (\code{logs/02\_window2\_terminal.log}):
+
+\input{gen/ephemeral_real.tex}
+
+\section{Координатор}
+
+\code{src/coordinator.py} --- мастер MapReduce из ДЗ-3 (логика расчёта не менялась) поверх ZooKeeper:
+\begin{itemize}
+\item выбор лидера --- эфемерные последовательные узлы \code{/hw4/skills/election/c\_N}, запасной ставит watch на узел предшественника;
+\item эпоха --- версия узла \code{/hw4/skills/epoch}, новый лидер увеличивает её через \code{setData};
+\item чекпоинт --- узел \code{/hw4/skills/checkpoint/map-NNNN} на каждую готовую задачу, новый лидер пропускает отмеченные;
+\item результат --- CSV в S3 и указатель \code{/hw4/skills/result}. При \code{FENCING=1} указатель пишется транзакцией
+\code{check(epoch, version=моя\_эпоха) + setData}.
+\end{itemize}
+
+Без отказов расчёт идёт около секунды, поэтому в сценариях каждая из 46 map-задач дополнительно спит 1~с (\code{--slow 1.0}).
+Контрольный прогон без задержки совпадает с ДЗ-3:
+
+\input{gen/single.tex}
+
+Обе копии работают с тайм-аутом сессии 10~с --- это видно в журнале kazoo и в \code{cons} на сервере:
+
+\input{gen/timeout.tex}
+
+\section{Пауза лидера без защиты}
+
+Запускаются копии A и B, A становится лидером. Когда готовы 14 задач из 46, A получает \code{kill -STOP}, через 40~с ---
+\code{kill -CONT}. Через \NfLead~с после паузы B стал лидером, пропустил 14 задач из чекпоинта, досчитал и записал результат.
+Возобновлённый A не знает, что его сместили, и записывает результат второй раз: указатель версии 2 смотрит на результат
+устаревшей эпохи~1. Контрольные числа обоих совпали с ДЗ-3.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{t_03_nofencing_timeline.png}
+\caption{Журналы A и B по времени (\code{logs/03\_nofencing})}
+\end{figure}
+
+\input{gen/Nf_result.tex}
+
+\section{Пауза лидера с защитой по эпохе}
+
+Тот же сценарий с \code{FENCING=1}. B стал лидером через \FLead~с и записал указатель. Запись A отклонена с
+\code{BadVersionError}: эпоха уже 2, а A проверял версию 1. Указатель остался один --- от B.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{t_04_fencing_timeline.png}
+\caption{Журналы A и B по времени (\code{logs/04\_fencing})}
+\end{figure}
+
+\input{gen/F_result.tex}
+
+\section{Время смены лидера}
+
+От \code{kill -STOP} лидера до строки <<СТАЛ ЛИДЕРОМ>> у запасного:
+
+\begin{center}
+\begin{tabular}{lccc}
+\toprule
+Прогон & Пауза & до watch, с & до нового лидера, с \\
+\midrule
+Без защиты & \NfPause & \NfWatch & \NfLead \\
+FENCING=1 & \FPause & \FWatch & \FLead \\
+Docker, без защиты & \DNfPause & \DNfWatch & \DNfLead \\
+Docker, FENCING=1 & \DFPause & \DFWatch & \DFLead \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Почти всё время --- ожидание тайм-аута сессии 10~с с последнего пинга, плюс до одного такта (2~с), с которым сервер проверяет
+истёкшие сессии. От watch до нового лидера --- около 10~мс.
+
+\section{Вариант в Docker}
+
+\code{compose.yaml} поднимает те же три сервера из образа \code{zookeeper:3.9.6-jre-17} на тех же портах.
+\code{scripts/05\_docker.sh} повторяет все проверки: роли, потеря одного и двух серверов, эфемерный узел и оба сценария координатора.
+Результат тот же (\code{logs/05\_docker*}).
+
+\input{gen/docker.tex}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{t4_docker.png}
+\caption{Docker: роли, потеря серверов, итоги обоих сценариев}
+\end{figure}
+
+\section{Ответы на вопросы}
+
+\subsection*{Почему серверов три, а не два и не четыре}
+
+ZooKeeper пишет данные и выбирает лидера только с согласия большинства. Тогда две отрезанные друг от друга части не смогут
+работать одновременно и разойтись. Из двух серверов большинство --- оба, и отказ любого останавливает сервис: это хуже, чем один
+сервер. Из трёх большинство --- два, и ансамбль переживает отказ одного (это и видно в разделе~2). Из четырёх большинство --- три,
+то есть отказ тоже переживается только один, а запись ждёт подтверждения от трёх серверов вместо двух. Поэтому размер ансамбля
+берут нечётным: $2f+1$ серверов переживают $f$ отказов.
+
+\subsection*{Почему защиту по эпохе проверяет получатель записи, а не ZooKeeper}
+
+ZooKeeper только выбирает лидера и не участвует в самой записи результата. Со старым лидером он может лишь закрыть его сессию
+и удалить его узел, но не может остановить процесс или отменить запись, которую тот уже отправил. Приостановленный A узнал о
+потере сессии только после \code{kill -CONT}, через 30~с после того, как лидером стал B. Проверка <<я ещё лидер?>> перед записью
+тоже не спасает: пауза может случиться между проверкой и записью. Надёжно отсечь старую запись может только тот, кто её
+принимает, --- он сравнивает эпоху в той же операции, что и запись. У меня получатель --- узел-указатель: условие \code{check}
+стоит в той же транзакции, что и \code{setData}. Для S3 или базы это был бы условный \code{PUT} или
+\code{UPDATE ... WHERE epoch <= :e}.
+
+\end{document}

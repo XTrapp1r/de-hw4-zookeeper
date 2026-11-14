@@ -1,0 +1,33 @@
+\begin{Verbatim}
+$ cat zk/zk1/conf/zoo.cfg
+tickTime=2000
+initLimit=10
+syncLimit=5
+minSessionTimeout=4000
+maxSessionTimeout=40000
+4lw.commands.whitelist=srvr,stat,ruok,mntr,conf,cons,dump
+server.1=127.0.0.1:2888:3888
+server.2=127.0.0.1:2889:3889
+server.3=127.0.0.1:2890:3890
+
+dataDir=data/zk1
+clientPort=2181
+admin.serverPort=8081
+$ diff zk/zk1/conf/zoo.cfg zk/zk2/conf/zoo.cfg; diff zk/zk1/conf/zoo.cfg zk/zk3/conf/zoo.cfg; true
+< dataDir=data/zk1
+< clientPort=2181
+< admin.serverPort=8081
+> dataDir=data/zk2
+> clientPort=2182
+> admin.serverPort=8082
+< dataDir=data/zk1
+< clientPort=2181
+< admin.serverPort=8081
+> dataDir=data/zk3
+> clientPort=2183
+> admin.serverPort=8083
+$ for i in 1 2 3; do echo "data/zk$i/myid = $(cat data/zk$i/myid)"; done
+data/zk1/myid = 1
+data/zk2/myid = 2
+data/zk3/myid = 3
+\end{Verbatim}

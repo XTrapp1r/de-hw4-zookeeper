@@ -1,0 +1,56 @@
+17:05:09.802 [B] старт: pid 33725, прогон 05_docker_fencing, FENCING=1, тайм-аут сессии 10 с, ZooKeeper 127.0.0.1:2181,127.0.0.1:2182,127.0.0.1:2183
+17:05:09.804 [B] kazoo: Connecting to 127.0.0.1(127.0.0.1):2182, use_ssl: False
+17:05:09.809 [B] kazoo: Session created, session_id: 144115347892076551 negotiated session timeout: 10000 connect timeout: 3333.3333333333335 read timeout: 6666.666666666667
+17:05:09.810 [B] kazoo: Zookeeper connection established, state: CONNECTED
+17:05:09.810 [B] состояние сессии ZooKeeper: CONNECTED
+17:05:09.818 [B] кандидат /hw4/skills/election/c_0000000001 (эфемерный+последовательный, сессия 0x200002535ca0007)
+17:05:09.820 [B] запасной: лидер сейчас A (узел c_0000000000), жду исчезновения его узла (watch)
+17:05:29.153 [B] сработал watch: узел c_0000000000 удалён -> пересчитываю очередь кандидатов
+17:05:29.158 [B] СТАЛ ЛИДЕРОМ: узел c_0000000001 первый в очереди, эпоха 2 (версия /hw4/skills/epoch)
+17:05:29.537 [B] чекпоинт /hw4/skills/checkpoint: готово map 14 из 46, reduce 0 из 4 (сделали: A в эпохе 1 - 14)
+17:05:29.978 [B] запущено воркеров: 2, pid [33977, 33978]; сплитов 46 по 1 МБ, редьюсеров 4, задержка map-задачи 1 с
+17:05:29.978 [B] map: к запуску 32 задач, 14 пропускаю - они уже в чекпоинте
+17:05:31.011 [B] map-14 attempt 1 ok, pid 33977, 1.03s
+17:05:31.026 [B] map-15 attempt 1 ok, pid 33978, 1.05s
+17:05:32.060 [B] map-16 attempt 1 ok, pid 33977, 1.04s
+17:05:32.069 [B] map-17 attempt 1 ok, pid 33978, 1.04s
+17:05:33.127 [B] map-18 attempt 1 ok, pid 33977, 1.06s
+17:05:33.139 [B] map-19 attempt 1 ok, pid 33978, 1.06s
+17:05:34.213 [B] map-20 attempt 1 ok, pid 33977, 1.08s
+17:05:34.277 [B] map-21 attempt 1 ok, pid 33978, 1.13s
+17:05:35.265 [B] map-22 attempt 1 ok, pid 33977, 1.04s
+17:05:35.304 [B] map-23 attempt 1 ok, pid 33978, 1.02s
+17:05:36.315 [B] map-24 attempt 1 ok, pid 33977, 1.04s
+17:05:36.335 [B] map-25 attempt 1 ok, pid 33978, 1.03s
+17:05:37.354 [B] map-27 attempt 1 ok, pid 33978, 1.02s
+17:05:37.364 [B] map-26 attempt 1 ok, pid 33977, 1.04s
+17:05:38.399 [B] map-29 attempt 1 ok, pid 33977, 1.03s
+17:05:38.402 [B] map-28 attempt 1 ok, pid 33978, 1.04s
+17:05:39.416 [B] map-30 attempt 1 ok, pid 33977, 1.01s
+17:05:39.430 [B] map-31 attempt 1 ok, pid 33978, 1.02s
+17:05:40.453 [B] map-32 attempt 1 ok, pid 33977, 1.03s
+17:05:40.463 [B] map-33 attempt 1 ok, pid 33978, 1.03s
+17:05:41.498 [B] map-35 attempt 1 ok, pid 33978, 1.03s
+17:05:41.504 [B] map-34 attempt 1 ok, pid 33977, 1.04s
+17:05:42.541 [B] map-36 attempt 1 ok, pid 33978, 1.04s
+17:05:42.556 [B] map-37 attempt 1 ok, pid 33977, 1.05s
+17:05:43.596 [B] map-39 attempt 1 ok, pid 33977, 1.03s
+17:05:43.610 [B] map-38 attempt 1 ok, pid 33978, 1.06s
+17:05:44.624 [B] map-40 attempt 1 ok, pid 33977, 1.02s
+17:05:44.637 [B] map-41 attempt 1 ok, pid 33978, 1.02s
+17:05:45.646 [B] map-42 attempt 1 ok, pid 33977, 1.02s
+17:05:45.658 [B] map-43 attempt 1 ok, pid 33978, 1.02s
+17:05:46.680 [B] map-44 attempt 1 ok, pid 33977, 1.03s
+17:05:46.686 [B] map-45 attempt 1 ok, pid 33978, 1.02s
+17:05:46.692 [B] reduce: к запуску 4 задач
+17:05:46.715 [B] reduce-0 attempt 1 ok, pid 33977, 0.02s
+17:05:46.720 [B] reduce-1 attempt 1 ok, pid 33978, 0.02s
+17:05:46.738 [B] reduce-2 attempt 1 ok, pid 33977, 0.02s
+17:05:46.741 [B] reduce-3 attempt 1 ok, pid 33978, 0.02s
+17:05:46.809 [B] КОНТРОЛЬ: вакансий варианта 1815, навыков 57 (сумма 8078), пар 1227 (сумма 17072), троек 6630 (сумма 22826); sha256 pairs_k2.csv 955bdeaa2d72a9a6
+17:05:47.992 [B] CSV выгружены: s3://hh-lake/results/zk/05_docker_fencing/coord-B-e2/ (и копия results/05_docker_fencing/coord-B-e2/)
+17:05:48.025 [B] записал результат: /hw4/skills/result версия 1 -> s3://hh-lake/results/zk/05_docker_fencing/coord-B-e2/ (multi: check эпохи 2 + setData)
+17:05:48.062 [B] kazoo: Closing connection to 127.0.0.1:2182
+17:05:48.063 [B] kazoo: Zookeeper session closed, state: CLOSED
+17:05:48.074 [B] состояние сессии ZooKeeper: LOST (сессию закрыли мы сами)
+17:05:48.083 [B] готово, сессия закрыта

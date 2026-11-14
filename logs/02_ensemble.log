@@ -1,0 +1,293 @@
+
+# ===== Этап 1. Java 17 (JAVA_HOME) и ZooKeeper 3.9.6, распакованный в три копии zk/zk1..zk3 =====
+
+$ echo "JAVA_HOME=$JAVA_HOME"; java -version
+JAVA_HOME=/opt/homebrew/opt/openjdk@17/libexec/openjdk.jdk/Contents/Home
+openjdk version "17.0.21.0.3" 2026-10-24
+OpenJDK Runtime Environment Homebrew (build 17.0.21.0.3+0)
+OpenJDK 64-Bit Server VM Homebrew (build 17.0.21.0.3+0, mixed mode, sharing)
+
+$ cat downloads/apache-zookeeper-3.9.6-bin.tar.gz.sha512; shasum -a 512 downloads/apache-zookeeper-3.9.6-bin.tar.gz
+e999626df06de30dc8bb53bb51da9bb786b1658406adafc6b92f104d72ca25e869f70a57c83a726f8b9558cc0fb519fc20f201aa5d6da09884bc4be5fe6dd3b0  apache-zookeeper-3.9.6-bin.tar.gz
+e999626df06de30dc8bb53bb51da9bb786b1658406adafc6b92f104d72ca25e869f70a57c83a726f8b9558cc0fb519fc20f201aa5d6da09884bc4be5fe6dd3b0  downloads/apache-zookeeper-3.9.6-bin.tar.gz
+
+$ ls zk/ zk/zk1/ zk/zk1/bin/ | head -20
+zk/:
+zk1
+zk2
+zk3
+
+zk/zk1/:
+LICENSE.txt
+NOTICE.txt
+README.md
+README_packaging.md
+bin
+conf
+docs
+lib
+logs
+
+zk/zk1/bin/:
+README.txt
+zkCleanup.sh
+zkCli.cmd
+
+$ zk/zk1/bin/zkServer.sh version 2>&1 | tail -1
+Apache ZooKeeper, version 3.9.6 2026-09-03 19:29 UTC
+
+# ===== Этап 2. Конфигурации: строки server.N одинаковые, clientPort / admin.serverPort / dataDir у каждого свои =====
+
+$ cat zk/zk1/conf/zoo.cfg
+tickTime=2000
+initLimit=10
+syncLimit=5
+minSessionTimeout=4000
+maxSessionTimeout=40000
+4lw.commands.whitelist=srvr,stat,ruok,mntr,conf,cons,dump
+server.1=127.0.0.1:2888:3888
+server.2=127.0.0.1:2889:3889
+server.3=127.0.0.1:2890:3890
+
+dataDir=/Users/admin/Desktop/rustfs_hw/hw4/data/zk1
+clientPort=2181
+admin.serverPort=8081
+
+$ diff zk/zk1/conf/zoo.cfg zk/zk2/conf/zoo.cfg; diff zk/zk1/conf/zoo.cfg zk/zk3/conf/zoo.cfg; true
+11,13c11,13
+< dataDir=/Users/admin/Desktop/rustfs_hw/hw4/data/zk1
+< clientPort=2181
+< admin.serverPort=8081
+---
+> dataDir=/Users/admin/Desktop/rustfs_hw/hw4/data/zk2
+> clientPort=2182
+> admin.serverPort=8082
+11,13c11,13
+< dataDir=/Users/admin/Desktop/rustfs_hw/hw4/data/zk1
+< clientPort=2181
+< admin.serverPort=8081
+---
+> dataDir=/Users/admin/Desktop/rustfs_hw/hw4/data/zk3
+> clientPort=2183
+> admin.serverPort=8083
+
+$ for i in 1 2 3; do echo "data/zk$i/myid = $(cat data/zk$i/myid)"; done
+data/zk1/myid = 1
+data/zk2/myid = 2
+data/zk3/myid = 3
+
+# ===== Запуск трёх серверов штатной командой zkServer.sh start =====
+
+$ for i in 1 2 3; do zk/zk$i/bin/zkServer.sh start; done
+ZooKeeper JMX enabled by default
+Using config: /Users/admin/Desktop/rustfs_hw/hw4/zk/zk1/bin/../conf/zoo.cfg
+Starting zookeeper ... STARTED
+ZooKeeper JMX enabled by default
+Using config: /Users/admin/Desktop/rustfs_hw/hw4/zk/zk2/bin/../conf/zoo.cfg
+Starting zookeeper ... STARTED
+ZooKeeper JMX enabled by default
+Using config: /Users/admin/Desktop/rustfs_hw/hw4/zk/zk3/bin/../conf/zoo.cfg
+Starting zookeeper ... STARTED
+
+$ for i in 1 2 3; do zk/zk$i/bin/zkServer.sh status; done
+ZooKeeper JMX enabled by default
+Using config: /Users/admin/Desktop/rustfs_hw/hw4/zk/zk1/bin/../conf/zoo.cfg
+Client port found: 2181. Client address: localhost. Client SSL: false.
+Mode: follower
+ZooKeeper JMX enabled by default
+Using config: /Users/admin/Desktop/rustfs_hw/hw4/zk/zk2/bin/../conf/zoo.cfg
+Client port found: 2182. Client address: localhost. Client SSL: false.
+Mode: follower
+ZooKeeper JMX enabled by default
+Using config: /Users/admin/Desktop/rustfs_hw/hw4/zk/zk3/bin/../conf/zoo.cfg
+Client port found: 2183. Client address: localhost. Client SSL: false.
+Mode: leader
+
+$ for p in 2181 2182 2183; do echo "--- echo srvr | nc localhost $p"; echo srvr | nc localhost $p; done
+--- echo srvr | nc localhost 2181
+Zookeeper version: 3.9.6-a355171b081b5b60749db8f19cca1528b0df936f, built on 2026-09-03 19:29 UTC
+Latency min/avg/max: 0/0.0/0
+Received: 2
+Sent: 1
+Connections: 1
+Outstanding: 0
+Zxid: 0x130000002f
+Mode: follower
+Node count: 63
+--- echo srvr | nc localhost 2182
+Zookeeper version: 3.9.6-a355171b081b5b60749db8f19cca1528b0df936f, built on 2026-09-03 19:29 UTC
+Latency min/avg/max: 0/0.0/0
+Received: 2
+Sent: 1
+Connections: 1
+Outstanding: 0
+Zxid: 0x130000002f
+Mode: follower
+Node count: 63
+--- echo srvr | nc localhost 2183
+Zookeeper version: 3.9.6-a355171b081b5b60749db8f19cca1528b0df936f, built on 2026-09-03 19:29 UTC
+Latency min/avg/max: 0/0.0/0
+Received: 2
+Sent: 1
+Connections: 1
+Outstanding: 0
+Zxid: 0x1400000000
+Mode: leader
+Node count: 63
+Proposal sizes last/min/max: -1/-1/-1
+
+$ for i in 1 2 3; do echo "zk$i: $(curl -s localhost:808$i/commands/leader | tr -d "\n ")"; done
+zk1: {"is_leader":false,"leader_id":3,"leader_ip":"127.0.0.1","command":"leader","error":null}
+zk2: {"is_leader":false,"leader_id":3,"leader_ip":"127.0.0.1","command":"leader","error":null}
+zk3: {"is_leader":true,"leader_id":3,"leader_ip":"127.0.0.1","command":"leader","error":null}
+
+$ for i in 1 2 3; do pid=$(pgrep -f "zk/zk$i/bin/../conf/zoo.cfg" | head -1); echo "zk$i (pid $pid) слушает: $(lsof -nP -iTCP -sTCP:LISTEN -a -p $pid | awk "NR>1 {print \$9}" | sort | tr "\n" " ")"; done
+zk1 (pid 27279) слушает: *:2181 *:51740 *:8081 127.0.0.1:3888 
+zk2 (pid 27323) слушает: *:2182 *:51741 *:8082 127.0.0.1:3889 
+zk3 (pid 27365) слушает: *:2183 *:51750 *:8083 127.0.0.1:2890 127.0.0.1:3890 
+
+# ===== Запись через zk1, чтение через zk2 и zk3 - данные реплицированы =====
+
+$ zkcli 127.0.0.1:2181 create /hw4-check 'записано через zk1, все 3 сервера'
+Created /hw4-check
+
+$ zkcli 127.0.0.1:2182 get /hw4-check; zkcli 127.0.0.1:2183 get /hw4-check
+записано через zk1, все 3 сервера
+записано через zk1, все 3 сервера
+
+# ===== Остановка одного сервера - лидера zk3. Осталось 2 из 3, кворум 2 есть: выбирается новый лидер, запись работает =====
+
+$ zk/zk3/bin/zkServer.sh stop
+ZooKeeper JMX enabled by default
+Using config: /Users/admin/Desktop/rustfs_hw/hw4/zk/zk3/bin/../conf/zoo.cfg
+Stopping zookeeper ... STOPPED
+
+$ zkstatus
+zk1 (порт 2181): Mode: follower
+zk2 (порт 2182): Mode: leader
+zk3 (порт 2183): Error contacting service. It is probably not running.
+
+$ zkcli 127.0.0.1:2181 set /hw4-check 'изменено через zk1, когда работают 2 из 3'; zkcli 127.0.0.1:2182 get -s /hw4-check | grep -E 'изменено|dataVersion'
+изменено через zk1, когда работают 2 из 3
+dataVersion = 1
+
+$ /Users/admin/Desktop/rustfs_hw/hw4/.venv/bin/python src/zkctl.py probe
+кворум есть: сессия 0x200012d9ac10001 на 127.0.0.1:2182, setData /hw4-probe=2026-11-14T16:59:06 -> version 9, прочитано 2026-11-14T16:59:06
+
+# ===== Остановка второго сервера - нового лидера zk2. Остался один zk1 из 3: кворума нет, ансамбль не обслуживает клиентов =====
+
+$ zk/zk2/bin/zkServer.sh stop
+ZooKeeper JMX enabled by default
+Using config: /Users/admin/Desktop/rustfs_hw/hw4/zk/zk2/bin/../conf/zoo.cfg
+Stopping zookeeper ... STOPPED
+
+$ zkstatus
+zk1 (порт 2181): Error contacting service. It is probably not running.
+zk2 (порт 2182): Error contacting service. It is probably not running.
+zk3 (порт 2183): Error contacting service. It is probably not running.
+
+$ pgrep -fl 'zk/zk1/' | grep -o 'QuorumPeerMain.*' ; echo "процесс zk1 жив: $(pgrep -f 'zk/zk1/' | head -1)"
+QuorumPeerMain /Users/admin/Desktop/rustfs_hw/hw4/zk/zk1/bin/../conf/zoo.cfg
+процесс zk1 жив: 27279
+
+$ echo ruok | nc localhost 2181; echo; echo srvr | nc localhost 2181
+imok
+This ZooKeeper instance is not currently serving requests
+
+$ /Users/admin/Desktop/rustfs_hw/hw4/.venv/bin/python src/zkctl.py probe
+НЕТ КВОРУМА: за 5.1 с не удалось открыть сессию (KazooTimeoutError); попыток соединения, оборванных серверами: 15 - ансамбль не обслуживает клиентов
+[exit code 1]
+
+$ with_timeout 20 zk/zk1/bin/zkCli.sh -server 127.0.0.1:2181 get /hw4-check 2>&1 | grep -v -E '^(WATCHER::|$)' | tail -4
+Connecting to 127.0.0.1:2181
+KeeperErrorCode = ConnectionLoss for /hw4-check
+16:59:18.297 ERROR Exiting JVM with code 1
+
+# ===== Запуск обоих остановленных серверов: кворум восстановлен, данные на месте =====
+
+$ zk/zk3/bin/zkServer.sh start; zk/zk2/bin/zkServer.sh start
+ZooKeeper JMX enabled by default
+Using config: /Users/admin/Desktop/rustfs_hw/hw4/zk/zk3/bin/../conf/zoo.cfg
+Starting zookeeper ... STARTED
+ZooKeeper JMX enabled by default
+Using config: /Users/admin/Desktop/rustfs_hw/hw4/zk/zk2/bin/../conf/zoo.cfg
+Starting zookeeper ... STARTED
+
+$ zkstatus
+zk1 (порт 2181): Mode: leader
+zk2 (порт 2182): Mode: follower
+zk3 (порт 2183): Mode: follower
+
+$ zkcli 127.0.0.1:2181,127.0.0.1:2182,127.0.0.1:2183 get -s /hw4-check | grep -E 'изменено|dataVersion'
+изменено через zk1, когда работают 2 из 3
+dataVersion = 1
+
+$ /Users/admin/Desktop/rustfs_hw/hw4/.venv/bin/python src/zkctl.py probe
+кворум есть: сессия 0x300012de3710000 на 127.0.0.1:2183, setData /hw4-probe=2026-11-14T16:59:27 -> version 10, прочитано 2026-11-14T16:59:27
+
+# ===== Эфемерный узел: zkCli во «втором окне» создаёт узел -e, первое окно его видит =====
+16:59:33.896 окно 2 (zkCli -server 127.0.0.1:2182, его вывод - logs/02_window2.log):
+
+$ grep -v -E '^(WATCHER::|WatchedEvent|Connecting|Welcome|JLine|$)' logs/02_window2.log | sed 's/\[zk: /\n[zk: /g' | grep -v '^$'
+[zk: 127.0.0.1:2182(CONNECTED) 0] Created /hw4-ephemeral
+[zk: 127.0.0.1:2182(CONNECTED) 1] [hw4, hw4-check, hw4-ephemeral, hw4-probe, zookeeper]
+[zk: 127.0.0.1:2182(CONNECTED) 2] живу, пока открыто окно 2
+cZxid = 0x1600000006
+ctime = Sat Nov 14 16:59:30 MSK 2026
+mZxid = 0x1600000006
+mtime = Sat Nov 14 16:59:30 MSK 2026
+pZxid = 0x1600000006
+cversion = 0
+dataVersion = 0
+aclVersion = 0
+ephemeralOwner = 0x200012de6da0001
+dataLength = 44
+numChildren = 0
+[zk: 127.0.0.1:2182(CONNECTED) 3] 
+
+$ zkcli 127.0.0.1:2181 get -s /hw4-ephemeral | grep -E 'живу|ephemeralOwner'
+живу, пока открыто окно 2
+ephemeralOwner = 0x200012de6da0001
+
+$ zkcli 127.0.0.1:2183 ls /
+[hw4, hw4-check, hw4-ephemeral, hw4-probe, zookeeper]
+
+$ for p in 2181 2182 2183; do echo dump | nc localhost $p | grep -A3 "Sessions with Ephemerals"; done
+Sessions with Ephemerals (1):
+0x200012de6da0001:
+	/hw4-ephemeral
+Connections dump:
+Sessions with Ephemerals (1):
+0x200012de6da0001:
+	/hw4-ephemeral
+Connections dump:
+Sessions with Ephemerals (1):
+0x200012de6da0001:
+	/hw4-ephemeral
+Connections dump:
+
+# ===== Закрываем окно 2 (SIGHUP процессу zkCli, как при закрытии окна терминала) и опрашиваем узел из окна 1 =====
+16:59:35.187 закрываю окно 2
+
+$ pgrep -f ZooKeeperMain > /dev/null && echo 'zkCli окна 2 ещё жив' || echo 'процесса zkCli окна 2 больше нет'
+процесса zkCli окна 2 больше нет
+16:59:36.888 через 1 с: /hw4-ephemeral ещё есть (сессия окна 2 ещё не истекла)
+16:59:41.527 через 6 с: /hw4-ephemeral ещё есть (сессия окна 2 ещё не истекла)
+16:59:46.152 через 11 с: /hw4-ephemeral ещё есть (сессия окна 2 ещё не истекла)
+16:59:50.774 через 15 с: /hw4-ephemeral ещё есть (сессия окна 2 ещё не истекла)
+16:59:55.432 через 20 с: /hw4-ephemeral ещё есть (сессия окна 2 ещё не истекла)
+17:00:00.110 через 25 с: /hw4-ephemeral ещё есть (сессия окна 2 ещё не истекла)
+17:00:04.782 узел /hw4-ephemeral исчез через 29 с после закрытия окна (сессия zkCli 30 с истекла)
+
+$ zkcli 127.0.0.1:2181 ls /; zkcli 127.0.0.1:2181 stat /hw4-ephemeral
+[hw4, hw4-check, hw4-probe, zookeeper]
+Node does not exist: /hw4-ephemeral
+
+# ===== Для сравнения: окно закрыто штатно командой quit - сессия закрывается сразу, узел исчезает сразу =====
+
+$ zkcli 127.0.0.1:2181 get -s /hw4-ephemeral2 | grep -E 'второй|ephemeralOwner'
+второй эфемерный
+ephemeralOwner = 0x300012de3710002
+
+$ zkcli 127.0.0.1:2181 stat /hw4-ephemeral2
+Node does not exist: /hw4-ephemeral2

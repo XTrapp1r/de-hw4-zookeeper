@@ -1,0 +1,31 @@
+{
+ "by": "B",
+ "epoch": 2,
+ "spec": {
+  "input": "s3://hh-lake/raw/hh/all_vacancies.csv",
+  "size": 47339239,
+  "chunk": 1048576,
+  "maps": 46,
+  "reducers": 4,
+  "kmax": 3,
+  "skills": 57
+ },
+ "control": "вакансий варианта 1815, навыков 57 (сумма 8078), пар 1227 (сумма 17072), троек 6630 (сумма 22826)",
+ "distinct": {
+  "1": 57,
+  "2": 1227,
+  "3": 6630
+ },
+ "total": {
+  "1": 8078,
+  "2": 17072,
+  "3": 22826
+ },
+ "variant_vacancies": 1815,
+ "records": 68584,
+ "sha256": {
+  "skills_k1.csv": "10d2050c1be05ce8a0fae3259dc822d2e25121904016c9cb6b9abf011d218cab",
+  "pairs_k2.csv": "955bdeaa2d72a9a625cb2fdf2098a030af3386e0943c4a5c7798e125f1f34151",
+  "triples_k3.csv": "336e66fb1832619cc928cf909107e5aec676669c15b418c074df45905f745ac7"
+ }
+}

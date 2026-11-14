@@ -1,0 +1,6 @@
+\begin{Verbatim}
+$ RUN=03_single COORD_ID=A python src/coordinator.py --slow 0 | grep -v -E 'map-[0-9]+ attempt|kazoo: Connecting'
+17:00:17.715 [A] КОНТРОЛЬ: вакансий варианта 1815, навыков 57 (сумма 8078), пар 1227 (сумма 17072), троек 6630 (сумма 22826); sha256 pairs_k2.csv 955bdeaa2d72a9a6
+$ python src/zkctl.py compare 03_single
+ИТОГ: все результаты прогона побайтно совпали с ДЗ-3
+\end{Verbatim}

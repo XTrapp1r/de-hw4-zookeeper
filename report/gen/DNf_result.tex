@@ -1,0 +1,12 @@
+\begin{Verbatim}
+$ grep -h -E 'записал результат|ОТКЛОНЕНА|BadVersion' logs/05_docker_nofencing/coord-*.log | sort
+17:04:37.938 [B] записал результат: /hw4/skills/result версия 1 -> s3://hh-lake/results/zk/05_docker_nofencing/coord-B-e2/ (setData без проверки эпохи)
+17:05:05.947 [A] записал результат: /hw4/skills/result версия 2 -> s3://hh-lake/results/zk/05_docker_nofencing/coord-A-e1/ (setData без проверки эпохи)
+$ zkcli 127.0.0.1:2181 get -s /hw4/skills/result | grep -E '^\{|dataVersion|mtime|mzxid'
+{"by": "coord-A", "epoch": 1, "result": "s3://hh-lake/results/zk/05_docker_nofencing/coord-A-e1/", "control": "вакансий варианта 1815, навыков 57 (сумма 8078), пар 1227 (сумма 17072), троек 6630 (сумма 22826)", "at": "2026-11-14T17:05:05.931"}
+dataVersion = 2
+$ python src/zkctl.py compare 05_docker_nofencing
+results/zk/05_docker_nofencing/coord-A-e1/: вакансий 1815; skills_k1.csv: 57/8078/10d2050c1be05ce8; pairs_k2.csv: 1227/17072/955bdeaa2d72a9a6; triples_k3.csv: 6630/22826/336e66fb1832619c -> СОВПАДАЕТ с ДЗ-3  <- на него указывает /hw4/skills/result
+results/zk/05_docker_nofencing/coord-B-e2/: вакансий 1815; skills_k1.csv: 57/8078/10d2050c1be05ce8; pairs_k2.csv: 1227/17072/955bdeaa2d72a9a6; triples_k3.csv: 6630/22826/336e66fb1832619c -> СОВПАДАЕТ с ДЗ-3
+ИТОГ: все результаты прогона побайтно совпали с ДЗ-3
+\end{Verbatim}

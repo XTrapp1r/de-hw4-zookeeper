@@ -1,0 +1,10 @@
+\begin{Verbatim}
+$ for i in 1 2 3; do zk/zk$i/bin/zkServer.sh status; done
+Mode: follower
+Mode: follower
+Mode: leader
+$ for i in 1 2 3; do echo "zk$i: $(curl -s localhost:808$i/commands/leader | tr -d "\n ")"; done
+zk1: {"is_leader":false,"leader_id":3,"leader_ip":"127.0.0.1","command":"leader","error":null}
+zk2: {"is_leader":false,"leader_id":3,"leader_ip":"127.0.0.1","command":"leader","error":null}
+zk3: {"is_leader":true,"leader_id":3,"leader_ip":"127.0.0.1","command":"leader","error":null}
+\end{Verbatim}

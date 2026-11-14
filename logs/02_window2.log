@@ -1,0 +1,33 @@
+Connecting to 127.0.0.1:2182
+Welcome to ZooKeeper!
+JLine support is enabled
+
+WATCHER::
+
+WatchedEvent state:SyncConnected type:None path:null zxid: -1
+[zk: 127.0.0.1:2182(CONNECTED) 0] Created /hw4-ephemeral
+[zk: 127.0.0.1:2182(CONNECTED) 1] [hw4, hw4-check, hw4-ephemeral, hw4-probe, zookeeper]
+[zk: 127.0.0.1:2182(CONNECTED) 2] живу, пока открыто окно 2
+cZxid = 0x1600000006
+ctime = Sat Nov 14 16:59:30 MSK 2026
+mZxid = 0x1600000006
+mtime = Sat Nov 14 16:59:30 MSK 2026
+pZxid = 0x1600000006
+cversion = 0
+dataVersion = 0
+aclVersion = 0
+ephemeralOwner = 0x200012de6da0001
+dataLength = 44
+numChildren = 0
+[zk: 127.0.0.1:2182(CONNECTED) 3] Connecting to 127.0.0.1:2183
+Welcome to ZooKeeper!
+JLine support is enabled
+
+WATCHER::
+
+WatchedEvent state:SyncConnected type:None path:null zxid: -1
+[zk: 127.0.0.1:2183(CONNECTED) 0] Created /hw4-ephemeral2
+[zk: 127.0.0.1:2183(CONNECTED) 1] 
+WATCHER::
+
+WatchedEvent state:Closed type:None path:null zxid: -1

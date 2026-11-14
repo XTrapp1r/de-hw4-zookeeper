@@ -1,0 +1,299 @@
+
+# ===== Локальный ансамбль останавливаем: его порты 2181-2183 и 8081-8083 займут контейнеры =====
+
+$ scripts/zk.sh stop
+Stopping zookeeper ... STOPPED
+Stopping zookeeper ... STOPPED
+Stopping zookeeper ... STOPPED
+
+# ===== Образ: официальный zookeeper:3.9.6-jre-17 (Docker Hub), compose.yaml =====
+
+$ docker image ls zookeeper; docker image inspect zookeeper:3.9.6-jre-17 --format '{{range .Config.Env}}{{println .}}{{end}}' | grep -E 'JAVA_VERSION|ZOO_(CONF|DATA)_DIR'
+IMAGE                    ID             DISK USAGE   CONTENT SIZE   EXTRA
+zookeeper:3.9.6-jre-17   f553dc6dd2f7        447MB          115MB        
+JAVA_VERSION=jdk-17.0.21+9
+ZOO_CONF_DIR=/conf
+ZOO_DATA_DIR=/data
+
+$ docker run --rm --entrypoint java zookeeper:3.9.6-jre-17 -version
+openjdk version "17.0.21" 2026-10-20
+OpenJDK Runtime Environment Temurin-17.0.21+9 (build 17.0.21+9)
+OpenJDK 64-Bit Server VM Temurin-17.0.21+9 (build 17.0.21+9, mixed mode, sharing)
+
+$ grep -v '^#' compose.yaml | grep -v '^$'
+name: hw4-zk
+x-zk: &zk
+  image: zookeeper:3.9.6-jre-17
+  restart: "no"
+x-env: &env
+  ZOO_TICK_TIME: 2000
+  ZOO_INIT_LIMIT: 10
+  ZOO_SYNC_LIMIT: 5
+  ZOO_STANDALONE_ENABLED: "false"
+  ZOO_4LW_COMMANDS_WHITELIST: srvr,stat,ruok,mntr,conf,cons,dump
+  ZOO_CFG_EXTRA: minSessionTimeout=4000 maxSessionTimeout=40000
+  ZOO_SERVERS: server.1=zoo1:2888:3888;2181 server.2=zoo2:2888:3888;2181 server.3=zoo3:2888:3888;2181
+services:
+  zoo1:
+    <<: *zk
+    hostname: zoo1
+    container_name: zoo1
+    environment: { <<: *env, ZOO_MY_ID: 1 }
+    ports: ["2181:2181", "8081:8080"]
+    volumes: [zoo1-data:/data, zoo1-datalog:/datalog]
+  zoo2:
+    <<: *zk
+    hostname: zoo2
+    container_name: zoo2
+    environment: { <<: *env, ZOO_MY_ID: 2 }
+    ports: ["2182:2181", "8082:8080"]
+    volumes: [zoo2-data:/data, zoo2-datalog:/datalog]
+  zoo3:
+    <<: *zk
+    hostname: zoo3
+    container_name: zoo3
+    environment: { <<: *env, ZOO_MY_ID: 3 }
+    ports: ["2183:2181", "8083:8080"]
+    volumes: [zoo3-data:/data, zoo3-datalog:/datalog]
+volumes:
+  zoo1-data:
+  zoo1-datalog:
+  zoo2-data:
+  zoo2-datalog:
+  zoo3-data:
+  zoo3-datalog:
+
+# ===== Запуск трёх контейнеров: docker compose up -d =====
+
+$ docker compose up -d 2>&1
+ Network hw4-zk_default Creating 
+ Network hw4-zk_default Created 
+ Volume hw4-zk_zoo2-datalog Creating 
+ Volume hw4-zk_zoo2-datalog Created 
+ Volume hw4-zk_zoo3-data Creating 
+ Volume hw4-zk_zoo3-data Created 
+ Volume hw4-zk_zoo3-datalog Creating 
+ Volume hw4-zk_zoo3-datalog Created 
+ Volume hw4-zk_zoo1-data Creating 
+ Volume hw4-zk_zoo1-data Created 
+ Volume hw4-zk_zoo1-datalog Creating 
+ Volume hw4-zk_zoo1-datalog Created 
+ Volume hw4-zk_zoo2-data Creating 
+ Volume hw4-zk_zoo2-data Created 
+ Container zoo3 Creating 
+ Container zoo2 Creating 
+ Container zoo1 Creating 
+ Container zoo3 Created 
+ Container zoo1 Created 
+ Container zoo2 Created 
+ Container zoo3 Starting 
+ Container zoo2 Starting 
+ Container zoo1 Starting 
+ Container zoo3 Started 
+ Container zoo1 Started 
+ Container zoo2 Started 
+
+$ docker compose ps --format 'table {{.Name}}\t{{.Image}}\t{{.Status}}\t{{.Ports}}'
+NAME      IMAGE                    STATUS         PORTS
+zoo1      zookeeper:3.9.6-jre-17   Up 8 seconds   0.0.0.0:2181->2181/tcp, [::]:2181->2181/tcp, 0.0.0.0:8081->8080/tcp, [::]:8081->8080/tcp
+zoo2      zookeeper:3.9.6-jre-17   Up 8 seconds   0.0.0.0:2182->2181/tcp, [::]:2182->2181/tcp, 0.0.0.0:8082->8080/tcp, [::]:8082->8080/tcp
+zoo3      zookeeper:3.9.6-jre-17   Up 8 seconds   0.0.0.0:2183->2181/tcp, [::]:2183->2181/tcp, 0.0.0.0:8083->8080/tcp, [::]:8083->8080/tcp
+
+$ docker exec zoo1 cat /conf/zoo.cfg
+dataDir=/data
+dataLogDir=/datalog
+tickTime=2000
+initLimit=10
+syncLimit=5
+autopurge.snapRetainCount=3
+autopurge.purgeInterval=0
+maxClientCnxns=60
+standaloneEnabled=false
+admin.enableServer=true
+server.1=zoo1:2888:3888;2181
+server.2=zoo2:2888:3888;2181
+server.3=zoo3:2888:3888;2181
+4lw.commands.whitelist=srvr,stat,ruok,mntr,conf,cons,dump
+minSessionTimeout=4000
+maxSessionTimeout=40000
+
+$ for i in 1 2 3; do echo "zoo$i: /data/myid = $(docker exec zoo$i cat /data/myid)"; done
+zoo1: /data/myid = 1
+zoo2: /data/myid = 2
+zoo3: /data/myid = 3
+
+$ for i in 1 2 3; do echo "--- docker exec zoo$i zkServer.sh status"; docker exec zoo$i zkServer.sh status 2>&1; done
+--- docker exec zoo1 zkServer.sh status
+ZooKeeper JMX enabled by default
+Using config: /conf/zoo.cfg
+Client port found: 2181. Client address: localhost. Client SSL: false.
+Mode: follower
+--- docker exec zoo2 zkServer.sh status
+ZooKeeper JMX enabled by default
+Using config: /conf/zoo.cfg
+Client port found: 2181. Client address: localhost. Client SSL: false.
+Mode: follower
+--- docker exec zoo3 zkServer.sh status
+ZooKeeper JMX enabled by default
+Using config: /conf/zoo.cfg
+Client port found: 2181. Client address: localhost. Client SSL: false.
+Mode: leader
+
+$ for i in 1 2 3; do echo "zoo$i: $(curl -s localhost:808$i/commands/leader | tr -d "\n ")"; done
+zoo1: {"is_leader":false,"leader_id":3,"leader_ip":"zoo3","command":"leader","error":null}
+zoo2: {"is_leader":false,"leader_id":3,"leader_ip":"zoo3","command":"leader","error":null}
+zoo3: {"is_leader":true,"leader_id":3,"leader_ip":"zoo3","command":"leader","error":null}
+
+# ===== Запись через zoo1 (localhost:2181), чтение через zoo2 и zoo3 =====
+
+$ zkcli 127.0.0.1:2181 create /hw4-docker 'записано через zoo1'; zkcli 127.0.0.1:2182 get /hw4-docker; zkcli 127.0.0.1:2183 get /hw4-docker
+Created /hw4-docker
+записано через zoo1
+записано через zoo1
+
+# ===== Останавливаем один контейнер - лидера zoo3: 2 из 3, кворум есть =====
+
+$ docker compose stop zoo3 2>&1
+ Container zoo3 Stopping 
+ Container zoo3 Stopped 
+
+$ dstatus
+zoo1 (порт 2181): Mode: follower
+zoo2 (порт 2182): Mode: leader
+zoo3 (порт 2183): Error response from daemon: container 970ac2a4b464782f14edfa856963b826bcf3bf4f096c5f6d924f4c212603b2df is not running
+
+$ zkcli 127.0.0.1:2181 set /hw4-docker 'изменено через zoo1, когда работают 2 из 3'; zkcli 127.0.0.1:2182 get -s /hw4-docker | grep -E 'изменено|dataVersion'
+изменено через zoo1, когда работают 2 из 3
+dataVersion = 1
+
+$ /Users/admin/Desktop/rustfs_hw/hw4/.venv/bin/python src/zkctl.py probe
+кворум есть: сессия 0x2000024f25b0001 на 127.0.0.1:2182, setData /hw4-probe=2026-11-14T17:03:02 -> version 1, прочитано 2026-11-14T17:03:02
+
+# ===== Останавливаем второй - нового лидера zoo2: остался zoo1, кворума нет =====
+
+$ docker compose stop zoo2 2>&1
+ Container zoo2 Stopping 
+ Container zoo2 Stopped 
+
+$ dstatus
+zoo1 (порт 2181): Error contacting service. It is probably not running.
+zoo2 (порт 2182): Error response from daemon: container e94c14f7f6a61c1e507829ed4969c1c281f9b2683a3c15f4b59bf13592901e2e is not running
+zoo3 (порт 2183): Error response from daemon: container 970ac2a4b464782f14edfa856963b826bcf3bf4f096c5f6d924f4c212603b2df is not running
+
+$ docker compose ps --format 'table {{.Name}}\t{{.Status}}'
+NAME      STATUS
+zoo1      Up 23 seconds
+
+$ echo ruok | nc localhost 2181; echo; echo srvr | nc localhost 2181
+imok
+This ZooKeeper instance is not currently serving requests
+
+$ /Users/admin/Desktop/rustfs_hw/hw4/.venv/bin/python src/zkctl.py probe
+НЕТ КВОРУМА: за 5.1 с не удалось открыть сессию (KazooTimeoutError); попыток соединения, оборванных серверами: 18 - ансамбль не обслуживает клиентов
+[exit code 1]
+
+$ with_timeout 20 zk/zk1/bin/zkCli.sh -server 127.0.0.1:2181 get /hw4-docker 2>&1 | grep -v -E '^(WATCHER::|$)' | tail -3
+Connecting to 127.0.0.1:2181
+KeeperErrorCode = ConnectionLoss for /hw4-docker
+17:03:13.060 ERROR Exiting JVM with code 1
+
+# ===== Запускаем оба контейнера обратно =====
+
+$ docker compose start zoo3 zoo2 2>&1
+ Container zoo2 Starting 
+ Container zoo3 Starting 
+ Container zoo2 Started 
+ Container zoo3 Started 
+
+$ dstatus
+zoo1 (порт 2181): Mode: follower
+zoo2 (порт 2182): Mode: leader
+zoo3 (порт 2183): Mode: follower
+
+$ zkcli 127.0.0.1:2181,127.0.0.1:2182,127.0.0.1:2183 get -s /hw4-docker | grep -E 'изменено|dataVersion'
+изменено через zoo1, когда работают 2 из 3
+dataVersion = 1
+
+$ /Users/admin/Desktop/rustfs_hw/hw4/.venv/bin/python src/zkctl.py probe
+кворум есть: сессия 0x100002539050000 на 127.0.0.1:2181, setData /hw4-probe=2026-11-14T17:03:22 -> version 2, прочитано 2026-11-14T17:03:22
+
+# ===== Эфемерный узел: zkCli во «втором окне» (клиент на хосте, сервер zoo2), закрываем окно =====
+
+$ grep -o 'Created .*' logs/05_docker_window2.log
+Created /hw4-docker-ephemeral
+
+$ zkcli 127.0.0.1:2181 get -s /hw4-docker-ephemeral | grep -E 'живу|ephemeralOwner'
+живу, пока открыто окно 2
+ephemeralOwner = 0x200002535ca0001
+17:03:27.227 закрываю окно 2
+17:03:27.867 через 0 с: узел ещё есть
+17:03:30.507 через 3 с: узел ещё есть
+17:03:33.155 через 6 с: узел ещё есть
+17:03:35.815 через 8 с: узел ещё есть
+17:03:38.480 через 11 с: узел ещё есть
+17:03:41.148 через 14 с: узел ещё есть
+17:03:43.812 через 16 с: узел ещё есть
+17:03:46.437 через 19 с: узел ещё есть
+17:03:49.105 через 22 с: узел ещё есть
+17:03:51.755 через 24 с: узел ещё есть
+17:03:54.383 через 27 с: узел ещё есть
+17:03:58.250 узел /hw4-docker-ephemeral исчез через 31 с после закрытия окна
+
+$ zkcli 127.0.0.1:2181 ls /
+[hw4-docker, hw4-probe, zookeeper]
+
+# ===== Этапы 3-4 на Docker-ансамбле: те же два сценария scripts/failover.sh =====
+
+$ grep -h -E 'СТАЛ ЛИДЕРОМ|чекпоинт /.*сделали|записал результат|ОТКЛОНЕНА' logs/05_docker_nofencing/coord-*.log | sort
+17:04:00.367 [A] СТАЛ ЛИДЕРОМ: узел c_0000000000 первый в очереди, эпоха 1 (версия /hw4/skills/epoch)
+17:04:19.160 [B] СТАЛ ЛИДЕРОМ: узел c_0000000001 первый в очереди, эпоха 2 (версия /hw4/skills/epoch)
+17:04:19.522 [B] чекпоинт /hw4/skills/checkpoint: готово map 14 из 46, reduce 0 из 4 (сделали: A в эпохе 1 - 14)
+17:04:37.938 [B] записал результат: /hw4/skills/result версия 1 -> s3://hh-lake/results/zk/05_docker_nofencing/coord-B-e2/ (setData без проверки эпохи)
+17:05:05.947 [A] записал результат: /hw4/skills/result версия 2 -> s3://hh-lake/results/zk/05_docker_nofencing/coord-A-e1/ (setData без проверки эпохи)
+
+$ grep -h -E '^/hw4/skills/(epoch|result): (эпоха|version)' logs/05_docker_nofencing.log | tail -2 | cut -c1-140; grep -h -E 'СМЕНА ЛИДЕРА|ИТОГ' logs/05_docker_nofencing.log | sort -u
+/hw4/skills/epoch: эпоха (version) 2, последний лидер B
+/hw4/skills/result: version 2, mzxid 0x300000099, данные: {"by": "coord-A", "epoch": 1, "result": "s3://hh-lake/results/zk/05_docker_n
+ИТОГ: все результаты прогона побайтно совпали с ДЗ-3
+СМЕНА ЛИДЕРА: 10.19 с от SIGSTOP лидера до нового лидера
+
+$ grep -h -E 'СТАЛ ЛИДЕРОМ|чекпоинт /.*сделали|записал результат|ОТКЛОНЕНА' logs/05_docker_fencing/coord-*.log | sort
+17:05:09.624 [A] СТАЛ ЛИДЕРОМ: узел c_0000000000 первый в очереди, эпоха 1 (версия /hw4/skills/epoch)
+17:05:29.158 [B] СТАЛ ЛИДЕРОМ: узел c_0000000001 первый в очереди, эпоха 2 (версия /hw4/skills/epoch)
+17:05:29.537 [B] чекпоинт /hw4/skills/checkpoint: готово map 14 из 46, reduce 0 из 4 (сделали: A в эпохе 1 - 14)
+17:05:48.025 [B] записал результат: /hw4/skills/result версия 1 -> s3://hh-lake/results/zk/05_docker_fencing/coord-B-e2/ (multi: check эпохи 2 + setData)
+17:06:14.895 [A] ЗАПИСЬ РЕЗУЛЬТАТА ОТКЛОНЕНА: BadVersionError в check(/hw4/skills/epoch, version=1) - текущая эпоха 2 у B; указатель /hw4/skills/result не изменён (ответ multi: ['BadVersionError', 'RuntimeInconsistency'])
+
+$ grep -h -E '^/hw4/skills/(epoch|result): (эпоха|version)' logs/05_docker_fencing.log | tail -2 | cut -c1-140; grep -h -E 'СМЕНА ЛИДЕРА|ИТОГ' logs/05_docker_fencing.log | sort -u
+/hw4/skills/epoch: эпоха (version) 2, последний лидер B
+/hw4/skills/result: version 1, mzxid 0x30000011f, данные: {"by": "coord-B", "epoch": 2, "result": "s3://hh-lake/results/zk/05_docker_f
+ИТОГ: все результаты прогона побайтно совпали с ДЗ-3
+СМЕНА ЛИДЕРА: 11.26 с от SIGSTOP лидера до нового лидера
+
+# ===== Останавливаем контейнеры и возвращаем локальный ансамбль =====
+
+$ docker compose down 2>&1
+ Container zoo1 Stopping 
+ Container zoo3 Stopping 
+ Container zoo2 Stopping 
+ Container zoo2 Stopped 
+ Container zoo2 Removing 
+ Container zoo2 Removed 
+ Container zoo1 Stopped 
+ Container zoo1 Removing 
+ Container zoo1 Removed 
+ Container zoo3 Stopped 
+ Container zoo3 Removing 
+ Container zoo3 Removed 
+ Network hw4-zk_default Removing 
+ Network hw4-zk_default Removed 
+
+$ scripts/zk.sh start
+Starting zookeeper ... STARTED
+Starting zookeeper ... STARTED
+Starting zookeeper ... STARTED
+
+$ scripts/zk.sh status
+zk1 (порт 2181): Mode: follower
+zk2 (порт 2182): Mode: leader
+zk3 (порт 2183): Mode: follower

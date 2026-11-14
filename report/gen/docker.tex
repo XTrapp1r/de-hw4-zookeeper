@@ -1,0 +1,11 @@
+\begin{Verbatim}
+$ docker run --rm --entrypoint java zookeeper:3.9.6-jre-17 -version
+openjdk version "17.0.21" 2026-10-20
+$ for i in 1 2 3; do echo "--- docker exec zoo$i zkServer.sh status"; docker exec zoo$i zkServer.sh status 2>&1; done
+--- docker exec zoo1 zkServer.sh status
+Mode: follower
+--- docker exec zoo2 zkServer.sh status
+Mode: follower
+--- docker exec zoo3 zkServer.sh status
+Mode: leader
+\end{Verbatim}

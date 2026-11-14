@@ -1,0 +1,68 @@
+17:00:15.367 [A] старт: pid 29535, прогон 03_single, FENCING=0, тайм-аут сессии 10 с, ZooKeeper 127.0.0.1:2181,127.0.0.1:2182,127.0.0.1:2183
+17:00:15.374 [A] kazoo: Connecting to 127.0.0.1(127.0.0.1):2183, use_ssl: False
+17:00:15.403 [A] kazoo: Session created, session_id: 216174078714773507 negotiated session timeout: 10000 connect timeout: 3333.3333333333335 read timeout: 6666.666666666667
+17:00:15.410 [A] kazoo: Zookeeper connection established, state: CONNECTED
+17:00:15.417 [A] состояние сессии ZooKeeper: CONNECTED
+17:00:15.441 [A] кандидат /hw4/skills/election/c_0000000000 (эфемерный+последовательный, сессия 0x300012de3710003)
+17:00:15.450 [A] СТАЛ ЛИДЕРОМ: узел c_0000000000 первый в очереди, эпоха 1 (версия /hw4/skills/epoch)
+17:00:15.893 [A] чекпоинт /hw4/skills/checkpoint: готово map 0 из 46, reduce 0 из 4
+17:00:16.326 [A] запущено воркеров: 2, pid [29542, 29543]; сплитов 46 по 1 МБ, редьюсеров 4, задержка map-задачи 0 с
+17:00:16.329 [A] map: к запуску 46 задач
+17:00:16.415 [A] map-1 attempt 1 ok, pid 29543, 0.08s
+17:00:16.426 [A] map-0 attempt 1 ok, pid 29542, 0.08s
+17:00:16.561 [A] map-2 attempt 1 ok, pid 29543, 0.14s
+17:00:16.597 [A] map-3 attempt 1 ok, pid 29542, 0.14s
+17:00:16.675 [A] map-5 attempt 1 ok, pid 29542, 0.06s
+17:00:16.686 [A] map-4 attempt 1 ok, pid 29543, 0.08s
+17:00:16.797 [A] map-6 attempt 1 ok, pid 29542, 0.11s
+17:00:16.814 [A] map-7 attempt 1 ok, pid 29543, 0.09s
+17:00:16.870 [A] map-8 attempt 1 ok, pid 29542, 0.06s
+17:00:16.908 [A] map-9 attempt 1 ok, pid 29543, 0.04s
+17:00:16.989 [A] map-10 attempt 1 ok, pid 29542, 0.08s
+17:00:17.004 [A] map-11 attempt 1 ok, pid 29543, 0.06s
+17:00:17.045 [A] map-12 attempt 1 ok, pid 29542, 0.04s
+17:00:17.067 [A] map-13 attempt 1 ok, pid 29543, 0.04s
+17:00:17.079 [A] map-14 attempt 1 ok, pid 29542, 0.03s
+17:00:17.106 [A] map-15 attempt 1 ok, pid 29543, 0.03s
+17:00:17.116 [A] map-16 attempt 1 ok, pid 29542, 0.03s
+17:00:17.135 [A] map-17 attempt 1 ok, pid 29543, 0.02s
+17:00:17.160 [A] map-18 attempt 1 ok, pid 29542, 0.03s
+17:00:17.181 [A] map-19 attempt 1 ok, pid 29543, 0.04s
+17:00:17.223 [A] map-20 attempt 1 ok, pid 29542, 0.05s
+17:00:17.256 [A] map-22 attempt 1 ok, pid 29542, 0.02s
+17:00:17.279 [A] map-23 attempt 1 ok, pid 29542, 0.02s
+17:00:17.301 [A] map-21 attempt 1 ok, pid 29543, 0.11s
+17:00:17.311 [A] map-24 attempt 1 ok, pid 29542, 0.02s
+17:00:17.329 [A] map-25 attempt 1 ok, pid 29543, 0.02s
+17:00:17.343 [A] map-26 attempt 1 ok, pid 29542, 0.02s
+17:00:17.351 [A] map-27 attempt 1 ok, pid 29543, 0.01s
+17:00:17.366 [A] map-28 attempt 1 ok, pid 29542, 0.02s
+17:00:17.374 [A] map-29 attempt 1 ok, pid 29543, 0.02s
+17:00:17.382 [A] map-30 attempt 1 ok, pid 29542, 0.01s
+17:00:17.398 [A] map-31 attempt 1 ok, pid 29543, 0.02s
+17:00:17.408 [A] map-32 attempt 1 ok, pid 29542, 0.02s
+17:00:17.420 [A] map-33 attempt 1 ok, pid 29543, 0.01s
+17:00:17.434 [A] map-34 attempt 1 ok, pid 29542, 0.02s
+17:00:17.443 [A] map-35 attempt 1 ok, pid 29543, 0.01s
+17:00:17.458 [A] map-36 attempt 1 ok, pid 29542, 0.02s
+17:00:17.474 [A] map-37 attempt 1 ok, pid 29543, 0.02s
+17:00:17.498 [A] map-39 attempt 1 ok, pid 29543, 0.02s
+17:00:17.507 [A] map-38 attempt 1 ok, pid 29542, 0.04s
+17:00:17.520 [A] map-40 attempt 1 ok, pid 29543, 0.01s
+17:00:17.534 [A] map-41 attempt 1 ok, pid 29542, 0.02s
+17:00:17.546 [A] map-42 attempt 1 ok, pid 29543, 0.02s
+17:00:17.556 [A] map-43 attempt 1 ok, pid 29542, 0.01s
+17:00:17.568 [A] map-44 attempt 1 ok, pid 29543, 0.01s
+17:00:17.577 [A] map-45 attempt 1 ok, pid 29542, 0.01s
+17:00:17.585 [A] reduce: к запуску 4 задач
+17:00:17.604 [A] reduce-1 attempt 1 ok, pid 29543, 0.02s
+17:00:17.612 [A] reduce-0 attempt 1 ok, pid 29542, 0.02s
+17:00:17.628 [A] reduce-2 attempt 1 ok, pid 29543, 0.02s
+17:00:17.637 [A] reduce-3 attempt 1 ok, pid 29542, 0.02s
+17:00:17.715 [A] КОНТРОЛЬ: вакансий варианта 1815, навыков 57 (сумма 8078), пар 1227 (сумма 17072), троек 6630 (сумма 22826); sha256 pairs_k2.csv 955bdeaa2d72a9a6
+17:00:18.619 [A] CSV выгружены: s3://hh-lake/results/zk/03_single/coord-A-e1/ (и копия results/03_single/coord-A-e1/)
+17:00:18.638 [A] записал результат: /hw4/skills/result версия 1 -> s3://hh-lake/results/zk/03_single/coord-A-e1/ (setData без проверки эпохи)
+17:00:18.676 [A] kazoo: Closing connection to 127.0.0.1:2183
+17:00:18.679 [A] kazoo: Zookeeper session closed, state: CLOSED
+17:00:18.686 [A] состояние сессии ZooKeeper: LOST (сессию закрыли мы сами)
+17:00:18.690 [A] готово, сессия закрыта
